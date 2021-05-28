@@ -12,11 +12,20 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
 
-
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
-
 app.use(express.static('public'))
+
+app.use(
+  session({
+      secret: "secret",
+      resave: false,
+      saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 mongoose.connect(
@@ -41,9 +50,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("User",userSchema);
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use('userLocal', new LocalStrategy(User.authenticate()));
 
 
 /*=======================================================================
@@ -57,23 +64,200 @@ const docSchema = new mongoose.Schema({
   userPhNum: Number,
   address:String,
   gender: String,
+  pendingAppointment: [
+    {
+      patientName: String,
+      timeSlot: String,
+      description: String,
+      email: String,
+    },
+  ],
+  bookedAppointment: [
+    {
+      patientName: String,
+      timeSlot: String,
+      description: String,
+      email: String,
+    },
+  ],
 });
 
-docSchema.plugin(passportLocalMongoose);
-const Doc = mongoose.model("Doc",docSchema);
-passport.use(Doc.createStrategy());
-passport.serializeUser(Doc.serializeUser());
-passport.deserializeUser(Doc.deserializeUser());
+  docSchema.plugin(passportLocalMongoose);
+  const Doc = mongoose.model("Doc",docSchema);
+  passport.use('docLocal', new LocalStrategy(Doc.authenticate()));
 
+  /*=======================================================================
+                            SERIALIZE AND DESERIALIZE
+========================================================================*/
 
+passport.serializeUser(function(user, done) { 
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  if(user!=null)
+    done(null,user);
+});
 
 app.get("/" , function(req,res){
   res.render("home");
 });
 
+/*=======================================================================
+                            HOME ROUTE
+========================================================================*/
 app.get("/docLogin" , function(req,res){
   res.render("docLogin");
 });
+
+/*=======================================================================
+                            USER LOGIN
+========================================================================*/
+app.get("/userLogin" , function(req,res){
+  res.render("userLogin");
+});
+
+app.post("/userLogin", function(req, res) {
+  const user = new User({
+      username: req.body.username,
+      password: req.body.password,
+  });
+
+    req.login(user, function(err) {
+        if (err) {
+            console.log(err);
+        } 
+        else{
+          // passport.authenticate("local")(req,res,function(){
+          //   res.redirect("/userLanding")
+          // })
+
+          passport.authenticate('userLocal')(req, res, function () {
+          res.redirect('/userLanding');
+          });
+        }
+    });
+});
+
+/*=======================================================================
+                            USER REGISTER
+========================================================================*/
+
+app.get('/userRegister', function (req, res) { 
+      res.render('userRegister');
+});
+
+app.post('/userRegister', function (req, res) {
+  User.register({
+        username: req.body.username,
+        name: req.body.name,
+        email: req.body.email,
+        userPhNum: req.body.phnum,
+        address:req.body.address,
+        dob:req.body.dob,
+        gender: req.body.gender,
+      }, req.body.password,
+      function(err,user){
+        if(err){
+          console.log(err);
+          res.redirect("/userRegister");
+        }
+        else{
+        
+          passport.authenticate('userLocal')(req, res, function () {
+          res.redirect('/userLanding');
+          });
+        }
+      }
+  )
+    });
+ 
+/*=======================================================================
+                            USER LANDING
+========================================================================*/
+app.get('/userLanding', function (req, res) { 
+  if(req.isAuthenticated()){
+    res.render('userLanding');
+    console.log(req.user);
+  }
+  else{
+    res.redirect("/userLogin");
+  }
+});
+
+/*=======================================================================
+                            DOCTOR LOGIN
+========================================================================*/
+app.get("/docLogin" , function(req,res){
+  res.render("docLogin");
+});
+
+app.post("/docLogin", function(req, res) {
+  const doc = new Doc({
+      username: req.body.username,
+      password: req.body.password,
+  });
+
+    req.login(doc, function(err) {
+        if (err) {
+            console.log(err);
+        } 
+        else{
+          // passport.authenticate("local")(req,res,function(){
+          //   res.redirect("/userLanding")
+          // })
+
+          passport.authenticate('docLocal')(req, res, function () {
+          res.redirect('/docLanding');
+          });
+        }
+    });
+});
+
+/*=======================================================================
+                            DOCTOR REGISTER
+========================================================================*/
+
+app.get('/docRegister', function (req, res) { 
+  res.render('docRegister');
+});
+
+app.post('/docRegister', function (req, res) {
+Doc.register({
+  username: req.body.username,
+  name: req.body.name,
+  email: req.body.email,
+  userPhNum: req.body.phnum,
+  address:req.body.address,
+  gender: req.body.gender,
+  }, req.body.password,
+  function(err,doc){
+    if(err){
+      console.log(err);
+      res.redirect("/docRegister");
+    }
+    else{
+      passport.authenticate('docLocal')(req, res, function () {
+        res.redirect('/docLanding');
+      })
+    }
+  }
+)
+});
+
+/*=======================================================================
+                            DOCTOR LANDING
+========================================================================*/
+app.get('/docLanding', function (req, res) { 
+  if(req.isAuthenticated()){
+    res.render('docLanding');
+    console.log(req.user);
+  }
+  else{
+    res.redirect("/docLogin");
+  }
+});
+
 //***********************************************************************************
 //                            VIDEO CHAT ROUTE
 //*********************************************************************************** 
