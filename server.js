@@ -109,4 +109,29 @@ server.listen(port, function () {
     console.log('Server has started on PORT : ' + port);
 });
 
+//***********************************************************************************
+//                            QUIZ ROUTE
+//*********************************************************************************** 
+
+app.get("/userLanding",(req,res)=>{
+    res.render('userLanding')
+})
+
+app.get("/quiz",(req,res)=>{
+    res.render('quiz')
+})
+
+app.post("/quiz",(req,res)=>{
+    res.redirect('/quiz')
+})
+
+app.get("/result",(req,res)=>{
+    res.render('result')
+})
+
+app.post("/result",(req,res)=>{
+    console.log(req.body)
+    res.redirect('/result')
+})
+
 
