@@ -2,12 +2,16 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const ejs = require('ejs')
+const app = express()
 const mongoose = require('mongoose')
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+const { v4: uuidV4 } = require('uuid')
 // const passport = require("passport");
 // const session = require("express-session");
 // const passportLocalMongoose = require("passport-local-mongoose");
 
-const app = express()
+
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -23,6 +27,14 @@ app.get('/', function (req, res) {
   res.render('index')
 })
 
-app.listen(5000, () => {
-  console.log('server running at port 5000')
-})
+
+
+//***********************************************************************************
+//                            VIDEO CHAT ROUTE
+//*********************************************************************************** 
+
+
+var port = process.env.PORT || 5000;
+server.listen(port, function () {
+    console.log('Server has started on PORT : ' + port);
+});
