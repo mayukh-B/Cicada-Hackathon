@@ -7,10 +7,10 @@ const mongoose = require('mongoose')
 const passport = require("passport");
 const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
+const LocalStrategy = require("passport-local").Strategy;
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
-const LocalStrategy = require("passport-local").Strategy;
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -261,7 +261,26 @@ app.get('/docLanding', function (req, res) {
 //***********************************************************************************
 //                            VIDEO CHAT ROUTE
 //*********************************************************************************** 
+app.get('/VideoCall', (req, res) => {
+  res.redirect(`/${uuidV4()}`)
+})
 
+app.get('/:room', (req, res) => {
+  res.render('VideoChat', { roomId: req.params.room })
+})
+
+io.on('connection', socket => {
+    socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId)
+    socket.broadcast.to(roomId).emit('user-connected', userId)
+    socket.on("chat-msg", function (data) {
+      io.to(roomId).emit("chat-msg", data);
+    });
+    socket.on('disconnect', () => {
+      socket.broadcast.to(roomId).emit('user-connected', userId)
+    })
+  })
+})
 
 var port = process.env.PORT || 5000;
 server.listen(port, function () {
