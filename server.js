@@ -69,6 +69,22 @@ const docSchema = new mongoose.Schema({
   userPhNum: Number,
   address: String,
   gender: String,
+  pendingAppointment: [
+    {
+      patientName: String,
+      timeSlot: String,
+      description: String,
+      email: String,
+    },
+  ],
+  bookedAppointment: [
+    {
+      patientName: String,
+      timeSlot: String,
+      description: String,
+      email: String,
+    },
+  ],
 })
 
 docSchema.plugin(passportLocalMongoose)
@@ -95,8 +111,36 @@ app.get('/', function (req, res) {
   res.render('home')
 })
 
+//***********************************************************************************
+//                            BOOKING SCHEDULING AND CONFIRMING ROUTE
+//***********************************************************************************
+
 app.get('/bookAppointment', (req, res) => {
   res.render('bookAppointment')
+})
+
+app.post('/AppointmentForm', (req, res) => {
+  let name = req.body.name
+  let email = req.body.email
+  let phNum = req.body.phNum
+  let slotTime = req.body.slotTime
+  let description = req.body.descr
+
+  res.render('confirmAppointment', {
+    name,
+    email,
+    phNum,
+    slotTime,
+    description,
+  })
+})
+
+app.get('/confirmAppointment', (req, res) => {
+  res.render('confirmAppointment')
+})
+
+app.post('/confirmedPost', (req, res) => {
+  console.log(req.body.name)
 })
 
 //***********************************************************************************
