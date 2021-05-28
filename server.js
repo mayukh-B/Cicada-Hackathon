@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const passport = require("passport");
 const session = require("express-session");
 const passportLocalMongoose = require("passport-local-mongoose");
+const LocalStrategy = require("passport-local").Strategy;
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
@@ -44,22 +45,7 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const user=new User({
-  username: "manju",
-  password: "12345",
-  name: "Manjulika Mondal",
-  email: "manju@gamil",
-  userPhNum: "334444",
-  address:"bonga",
-  dob:"15-04-01",
-  gender: "female",
-  score:12,
-});
 
-app.get("/docLogin" , function(req,res){
-  res.render("docLogin");
-});
-// user.save();
 /*=======================================================================
                             CREATE DOCTOR SCHEMA
 ========================================================================*/
@@ -79,30 +65,38 @@ passport.use(Doc.createStrategy());
 passport.serializeUser(Doc.serializeUser());
 passport.deserializeUser(Doc.deserializeUser());
 
-const doc=new Doc({
-  username: "manju",
-  password: "12345",
-  name: "Manjulika Mondal",
-  email: "manju@gamil",
-  userPhNum: "334444",
-  address:"bonga",
-  gender: "female",
- 
-});
-app.get("/userLogin" , function(req,res){
-  res.render("userLogin");
-});
-// doc.save();
+
 
 app.get("/" , function(req,res){
   res.render("home");
 });
 
-
+app.get("/docLogin" , function(req,res){
+  res.render("docLogin");
+});
 //***********************************************************************************
 //                            VIDEO CHAT ROUTE
 //*********************************************************************************** 
+app.get('/VideoCall', (req, res) => {
+  res.redirect(`/${uuidV4()}`)
+})
 
+app.get('/:room', (req, res) => {
+  res.render('VideoChat', { roomId: req.params.room })
+})
+
+io.on('connection', socket => {
+    socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId)
+    socket.broadcast.to(roomId).emit('user-connected', userId)
+    socket.on("chat-msg", function (data) {
+      io.to(roomId).emit("chat-msg", data);
+    });
+    socket.on('disconnect', () => {
+      socket.broadcast.to(roomId).emit('user-connected', userId)
+    })
+  })
+})
 
 var port = process.env.PORT || 5000;
 server.listen(port, function () {
