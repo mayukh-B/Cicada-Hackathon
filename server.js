@@ -11,6 +11,9 @@ const app = express()
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(express.static('public'))
+
+
 mongoose.connect(
   `mongodb+srv://${process.env.ADMIN}:${process.env.PASSWORD}@cluster0.cebu5.mongodb.net/cicadaDB?retryWrites=true&w=majority`,
   { useUnifiedTopology: true, useNewUrlParser: true },
