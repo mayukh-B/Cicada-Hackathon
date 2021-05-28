@@ -44,21 +44,21 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const user=new User({
-  username: "manju",
-  password: "12345",
-  name: "Manjulika Mondal",
-  email: "manju@gamil",
-  userPhNum: "334444",
-  address:"bonga",
-  dob:"15-04-01",
-  gender: "female",
-  score:12,
-});
+// const user=new User({
+//   username: "manju",
+//   password: "12345",
+//   name: "Manjulika Mondal",
+//   email: "manju@gamil",
+//   userPhNum: "334444",
+//   address:"bonga",
+//   dob:"15-04-01",
+//   gender: "female",
+//   score:12,
+// });
 
-app.get("/docLogin" , function(req,res){
-  res.render("docLogin");
-});
+// app.get("/docLogin" , function(req,res){
+//   res.render("docLogin");
+// });
 // user.save();
 /*=======================================================================
                             CREATE DOCTOR SCHEMA
@@ -79,26 +79,39 @@ passport.use(Doc.createStrategy());
 passport.serializeUser(Doc.serializeUser());
 passport.deserializeUser(Doc.deserializeUser());
 
-const doc=new Doc({
-  username: "manju",
-  password: "12345",
-  name: "Manjulika Mondal",
-  email: "manju@gamil",
-  userPhNum: "334444",
-  address:"bonga",
-  gender: "female",
+// const doc=new Doc({
+//   username: "manju",
+//   password: "12345",
+//   name: "Manjulika Mondal",
+//   email: "manju@gamil",
+//   userPhNum: "334444",
+//   address:"bonga",
+//   gender: "female",
  
-});
+// });
 app.get("/userLogin" , function(req,res){
   res.render("userLogin");
+});
+app.get("/docLogin" , function(req,res){
+  res.render("docLogin");
 });
 // doc.save();
 
 app.get("/" , function(req,res){
   res.render("home");
 });
+//***********************************************************************************
+//                            USER PROFILE
+//*********************************************************************************** 
+app.get("/user/:id",(req,res) => {
+  // if(req.isAuthenticated()){
+    const reqUser = req.params.id;
+    res.render("userProfile")
+  // }else{
+  //   res.redirect("/userLogin");
+  // }
 
-
+})
 //***********************************************************************************
 //                            VIDEO CHAT ROUTE
 //*********************************************************************************** 

@@ -8,17 +8,19 @@
 </head>
 <body>
     <form action="/useriLogin" method="POST">
-        <label>DOC UserName</label>
+        <label> UserName</label>
         <input 
             type="text" 
             name="username" 
             placeholder="Please Enter Username"
+            required
         />
-        <label>DOC Password</label>
+        <label> Password</label>
         <input 
             type="text" 
             name="userPassword" 
             placeholder="Please Enter Password"
+            required
         />
 
         <button type="submit">Login</button>
