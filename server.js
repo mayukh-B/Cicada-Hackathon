@@ -109,10 +109,4 @@ server.listen(port, function () {
     console.log('Server has started on PORT : ' + port);
 });
 
-/*=======================================================================
-                            LISTEN APP
-========================================================================*/
-app.listen(5000, () => {
-  console.log('server running at port 5000')
-})
 
