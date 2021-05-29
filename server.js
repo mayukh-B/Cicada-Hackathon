@@ -272,12 +272,16 @@ app.get('/users/doctors/:id', (req, res) => {
 /*=======================================================================
                             DOCTOR LANDING
 ========================================================================*/
-app.get('/docLanding', function (req, res) {
-  if (req.isAuthenticated()) {
-    res.render('docLanding')
-    console.log(req.user)
-  } else {
-    res.redirect('/docLogin')
+app.get('/docLanding', function (req, res) { 
+  if(req.isAuthenticated()){
+    let name = req.user.name;
+    let email = req.user.email;
+    let phNum = req.user.userPhNum;
+    let address = req.user.address;
+    let degree = req.user.degree;
+    let gender = req.user.gender;
+    let pending = req.user.pendingAppointment;
+    res.render('docLanding', {name, email, phNum, address, degree, gender, pending});
   }
 })
 
