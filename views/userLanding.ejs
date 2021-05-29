@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>WELCOME USER</h1>
+    <%- include('partials/navbar-Login') %> 
     <a href="/user/profile/<%= id %>">Profile</a>
     <form action="/user/quiz" method="POST">
         <button type="submit">Take Quiz</button>

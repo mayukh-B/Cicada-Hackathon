@@ -94,7 +94,11 @@ passport.deserializeUser(function (user, done) {
 })
 
 app.get('/', function (req, res) {
-  res.render('home')
+  res.render('landing')
+})
+
+app.get("/Login", function(req,res){
+  res.render("home")
 })
 
 /*=======================================================================
@@ -512,22 +516,29 @@ server.listen(port, function () {
 
 //***********************************************************************************
 //                            QUIZ ROUTE
-//***********************************************************************************
-
-app.get('/userLanding', (req, res) => {
-  res.render('userLanding')
+//*********************************************************************************** 
+// app.get("/mobQuiz",(req,res)=>{
+//   res.render()
+// })
+app.get("/userLanding",(req,res)=>{
+    res.render('userLanding')
 })
 
-app.get('/user/quiz', (req, res) => {
-  res.render('quiz')
+app.get("/user/mobQuiz",(req,res)=>{
+    res.render('mobQuiz')
 })
 
-app.post('/user/quiz', (req, res) => {
-  res.redirect('/user/quiz')
+
+app.post("/user/quiz",(req,res)=>{
+    res.redirect('/user/quiz')
 })
 
-app.get('/user/result', (req, res) => {
-  res.render('result')
+app.get("/user/result",(req,res)=>{
+  if(req.isAuthenticated()){
+    res.render('result')
+  }else{
+    res.redirect("/l")
+  }
 })
 
 app.post('/user/result', (req, res) => {
@@ -541,3 +552,13 @@ app.post('/user/result', (req, res) => {
 app.get('/user/activities', (req, res) => {
   res.render('quiz')
 })
+
+
+//***********************************************************************************
+//                            Logout
+//*********************************************************************************** 
+app.get('/users/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
+

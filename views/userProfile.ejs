@@ -6,23 +6,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <h1>Contact Information</h1>
+    <div class="_container">
+
+    <div class="contact-info">
+        <div class="info">
+            <h1>Contact Information</h1>
             <p>Name: <%= user.name%></p>
             <p>Residential Address: <%= user.address%></p>
             <p>Email Address: <%= user.email%></p>
         <h1>Basic Information</h1>
             <p>Birthday: <%=user.dob %></p>
             <p>Gender: <%=user.gender %></p>
+        </div>
+        <div class="avatar">
+            <% if(user.gender == 'male'){ %>
+                <img src="/images/Male.jpg" alt="male" srcset="">
+            <%}else{%>
+                <img src="/images/female.png" alt="female" srcset="">
+            <%}%>
+        </div>
     </div>
-    <div>
-        
+    <div class="physicalWellBeing">
+        <div>
+            <h1>Activities For Physical And Mental Well being</h1>
+        </div>
+        <div class="flexContainer">
+            <div class="image">
+                <div>
+                    <img src="/images/viktor-bystrov-Gi0OMNguFaw-unsplash.jpg" alt="cycling" srcset="">
+                </div>
+                <div>
+                    <h1>Cycling</h1>
+                </div>
+                <div>
+                    <p>Cycling can help to protect you from serious diseases such as stroke, heart attack​, some cancers, depression, diabetes, obesity and arthritis. ·</p>
+                </div>
+            </div>
+            <div class="image">
+                <div>
+                    <img src="/images/Meditation.jpg" alt="meditation" srcset="">
+                </div>
+                <div>
+                    <h1>Meditation</h1>
+                </div>
+                <div>
+                    <p>Cycling can help to protect you from serious diseases such as stroke, heart attack​, some cancers, depression, diabetes, obesity and arthritis. ·</p>
+                </div>
+            </div>
+            <div class="image">
+                <div>
+                    <img src="/images/Running.jpg" alt="running" srcset="">
+                </div>
+                <div>
+                    <h1>Running</h1>
+                </div>
+                <div>
+                    <p>Cycling can help to protect you from serious diseases such as stroke, heart attack​, some cancers, depression, diabetes, obesity and arthritis. ·</p>
+                </div>
+            </div>
+            <div>
+                <a href="/users/activities">Activities</a>
+            </div>
+        </div>
     </div>
-    <div>
+    <div class="nutritionalGuidelines">
         <h1>Nutritional Guidelines</h1>
         <h3>Dietary Guidelines:</h3>
         <ul>
@@ -50,6 +101,6 @@
             <li>Diet and nutrition are unique to every person, but these following these guidelines are of no harm.</li>
         </ul>
     </div>
-
+</div>
 </body>
 </html>
