@@ -62,6 +62,7 @@ const docSchema = new mongoose.Schema({
   userPhNum: Number,
   address: String,
   gender: String,
+  degree: String,
   pendingAppointment: [
     {
       patientName: String,
@@ -241,6 +242,19 @@ app.post('/docRegister', function (req, res) {
 })
 
 /*=======================================================================
+                            USER ROUTE DOCTOR PROFILE
+========================================================================*/
+app.get('/users/doctors/:id', (req, res) => {
+  const requestedDoctorId = req.params.id
+  Doc.find({ _id: requestedDoctorId }, (err, foundDoctor) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(foundDoctor)
+    }
+  })
+})
+/*=======================================================================
                             DOCTOR LANDING
 ========================================================================*/
 app.get('/docLanding', function (req, res) {
@@ -253,6 +267,7 @@ app.get('/docLanding', function (req, res) {
 })
 
 //***********************************************************************************
+
 //                      APPOINTMENT BOOKING AND CONFIRMATION ROUTES
 //***********************************************************************************
 
@@ -310,3 +325,13 @@ var port = process.env.PORT || 5000
 server.listen(port, function () {
   console.log('Server has started on PORT : ' + port)
 })
+
+// app.get("/user/:id",(req,res) => {
+//   // if(req.isAuthenticated()){
+//     const reqUser = req.params.id;
+//     res.render("userProfile")
+//   // }else{
+//   //   res.redirect("/userLogin");
+//   // }
+
+// })
