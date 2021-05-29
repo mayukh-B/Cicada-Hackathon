@@ -11,6 +11,7 @@ const LocalStrategy = require('passport-local').Strategy
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
+const { start } = require('repl')
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -62,15 +63,12 @@ const docSchema = new mongoose.Schema({
   userPhNum: Number,
   address: String,
   gender: String,
-  degree: String,
-  experience: String,
-  reviews: [
-    {
-      patientName: String,
-      review: String,
-    },
-  ],
-
+  degree:String,
+  experience:String,
+  reviews:[{
+    patientName:String,
+    review:String,
+  }],
   pendingAppointment: [],
   bookedAppointment: [],
 })
@@ -168,7 +166,7 @@ app.post('/userRegister', function (req, res) {
 ========================================================================*/
 app.get('/userLanding', function (req, res) {
   if (req.isAuthenticated()) {
-    res.render('userLanding')
+    res.render('userLanding',{id: req.user._id})
     console.log(req.user)
   } else {
     res.redirect('/userLogin')
@@ -254,7 +252,17 @@ app.get('/api/doctors', (req, res) => {
 app.get('/users/search', (req, res) => {
   res.render('searchPage')
 })
+/*=======================================================================
+                            USER ROUTE DOCTOR PROFILE
+========================================================================*/
+app.get("/user/profile/:id",(req,res) => {
+  if(req.isAuthenticated()){
+    res.render("userProfile",{user: req.user})
+  }else{
+    res.redirect("/userLogin");
+  }
 
+})
 /*=======================================================================
                             USER ROUTE DOCTOR PROFILE
 ========================================================================*/
