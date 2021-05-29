@@ -250,8 +250,11 @@ Doc.register({
 ========================================================================*/
 app.get('/docLanding', function (req, res) { 
   if(req.isAuthenticated()){
-    res.render('docLanding');
-    console.log(req.user);
+    let name = req.user.name;
+    let email = req.user.email;
+    let phNum = req.user.userPhNum;
+    let address = req.user.address;
+    res.render('docLanding', {name, email, phNum, address});
   }
   else{
     res.redirect("/docLogin");
