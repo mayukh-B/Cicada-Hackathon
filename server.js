@@ -341,43 +341,37 @@ io.on('connection', (socket) => {
 
 var port = process.env.PORT || 5000
 server.listen(port, function () {
-
   console.log('Server has started on PORT : ' + port)
 })
 
-
-
 //***********************************************************************************
 //                            QUIZ ROUTE
-//*********************************************************************************** 
+//***********************************************************************************
 
-app.get("/userLanding",(req,res)=>{
-    res.render('userLanding')
+app.get('/userLanding', (req, res) => {
+  res.render('userLanding')
 })
 
-app.get("/user/quiz",(req,res)=>{
-    res.render('quiz')
+app.get('/user/quiz', (req, res) => {
+  res.render('quiz')
 })
 
-app.post("/user/quiz",(req,res)=>{
-    res.redirect('/user/quiz')
+app.post('/user/quiz', (req, res) => {
+  res.redirect('/user/quiz')
 })
 
-app.get("/user/result",(req,res)=>{
-    res.render('result')
+app.get('/user/result', (req, res) => {
+  res.render('result')
 })
 
-app.post("/user/result",(req,res)=>{
-    console.log(req.body)
-    res.redirect('/user/result')
+app.post('/user/result', (req, res) => {
+  console.log(req.body)
+  res.redirect('/user/result')
 })
-
 
 //***********************************************************************************
 //                            ACTIVITIES
-//*********************************************************************************** 
-app.get("/user/activities",(req,res)=>{
-    res.render('quiz')
+//***********************************************************************************
+app.get('/user/activities', (req, res) => {
+  res.render('quiz')
 })
-
-
