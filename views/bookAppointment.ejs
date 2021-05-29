@@ -5,21 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    <h2><%=docId%></h2>
-    <h2><%=id%></h2>
-    <div>
+     <div class="container mt-5" style="margin-bottom: 10px;">
         <form action="/user/AppointmentForm" method="POST">
-            <input type="text" placeholder="Enter your name" name="name" required><br><br>
-            <input type="email" placeholder="Enter Email" name="email" required><br><br>
-            <input type="number" placeholder="PhoneNumber" name="phNum" required><br><br>
-            <label>Enter Date</label><input type="date" name="date" required><br><br>
-            <label>Enter Desired time: </label> <input type="time"  name="slotTime" min="09:00" max="18:00" required><br><br>
+            <h3>Book your appointment.</h3>
+            <input type="text" placeholder="Enter your name" name="name" class="form-control" required><br><br> 
+            <input type="email" placeholder="Enter Email" name="email" class="form-control"required><br><br> 
+            <input type="number" placeholder="PhoneNumber" name="phNum" class="form-control"required><br><br> 
+            <label class="form-label">Enter Date</label><input type="date" name="date" class="form-control" required><br><br> 
+            <label class="form-label">Enter Desired time:</label> <input type="time"  name="slotTime" min="09:00" max="18:00" required><br><br> 
             <input value="<%=docId%>" name="docId" style="display: none;">
             <input value="<%=id%>" name="id" style="display: none;">
-            <textarea name="descr" placeholder="Descirbe your problem" required></textarea><br><br>
-            <button type="submit">Submit</button>
+            <label class="form-label">Description</label>
+            <textarea name="descr" placeholder="Descirbe your problem" class="form-control" required></textarea><br><br>
+            <button type="submit" name="btnSubmit" class="btn btn-warning" style="color: white;">Submit</button>          
         </form>
     </div>
 </body>
