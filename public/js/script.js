@@ -96,7 +96,7 @@ const display=()=>{
 }
 
 display();
-let flag=true;
+// let flag=true;
 
 const checkAnswer=()=>{
     let answer;

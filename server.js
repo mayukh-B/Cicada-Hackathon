@@ -295,21 +295,27 @@ app.get("/userLanding",(req,res)=>{
     res.render('userLanding')
 })
 
-app.get("/quiz",(req,res)=>{
+app.get("/user/quiz",(req,res)=>{
     res.render('quiz')
 })
 
-app.post("/quiz",(req,res)=>{
-    res.redirect('/quiz')
+app.post("/user/quiz",(req,res)=>{
+    res.redirect('/user/quiz')
 })
 
-app.get("/result",(req,res)=>{
+app.get("/user/result",(req,res)=>{
     res.render('result')
 })
 
-app.post("/result",(req,res)=>{
+app.post("/user/result",(req,res)=>{
     console.log(req.body)
-    res.redirect('/result')
+    res.redirect('/user/result')
 })
 
 
+//***********************************************************************************
+//                            ACTIVITIES
+//*********************************************************************************** 
+app.get("/user/activities",(req,res)=>{
+    res.render('quiz')
+})
