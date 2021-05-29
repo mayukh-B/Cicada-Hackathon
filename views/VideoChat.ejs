@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/style.css">
   <script>
     const ROOM_ID = "<%= roomId %>"
   </script>
@@ -15,7 +16,7 @@
     #video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, 300px);
-      grid-auto-rows: 300px;
+      grid-auto-rows: 400px;
     }
     
     video {
@@ -23,21 +24,53 @@
       height: 100%;
       object-fit: cover;
     }
+
+    @media only screen and (max-width: 760px) {
+      .message{
+        display: none;
+      }
+      #video-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 200px);
+        grid-auto-rows: 200px;
+      }
+    }
   </style>
 </head>
 <body>
-    <h1>Video Call</h1>
-  <div id="video-grid"></div>
-  <button id="mute/unmute">Mute</button>
-  <button id="pause">Pause</button>
-  <div class="message">
-      <h3>Chat</h3>
-        <div id="output">
-          
+    <div class="video-outer">
+      <div class="streaming">
+        <div class="stream-videos">
+          <div id="video-grid"></div>
         </div>
-        <input id="handle" type="text"  placeholder="Enter your name"/>
-        <input id="message" type="text" placeholder="Type Message"/>
-        <button id="send">Send</button>
-  </div>
+        <div id="control-footer">
+          <div class="control-block">
+            <div class="controlbuttons">
+              <button id="mute/unmute" class="mute-unmute">Mute</button>
+            </div>
+            <div class="controlbuttons">
+              <button id="pause">Pause</button>
+            </div>
+            <div class="controlbuttons">
+              <a href="/" id="hang-up">Disconnect</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="message">
+        <h2>Chat</h2>
+        <div class="chatArea">
+            <div id="output"></div>
+        </div>
+          <div class="chat">
+            <label>Name:</label>
+            <input id="handle" type="text"  placeholder="Enter your name"/>
+            <br/>
+            <label>Message:</label>
+            <input id="message" type="text" placeholder="Type Message"/>
+            <button id="send">Send</button>
+          </div>
+      </div>
+    </div>
 </body>
 </html>

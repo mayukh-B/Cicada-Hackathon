@@ -1,3 +1,8 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
 .displayNone{
     display:none;
 }
@@ -26,4 +31,86 @@
     box-shadow: 2px 2px 10px -2px rgba(0,0,0,0.58);
     -webkit-box-shadow: 2px 2px 10px -2px rgba(0,0,0,0.58);
     -moz-box-shadow: 2px 2px 10px -2px rgba(0,0,0,0.58);
+}
+
+.video-outer{
+    height: 100vh;
+	display: flex;
+}
+
+.streaming{
+    background: #222222;
+	flex: 0.8;
+	display: flex;
+	flex-direction: column;
+}
+
+.stream-videos{
+    flex-grow: 1;
+	background-color: #222222;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#control-footer{
+    padding: 3px 5px 0px 5px;
+	display: flex;
+	background-color: #1a1a1a;
+	color: #a8a8a8;
+	justify-content: space-between;
+}
+
+.control-block{
+    display: flex;
+}
+
+.mute-unmute{
+    margin: 5px;
+}
+
+#pause{
+    margin: 5px;
+}
+
+#hang-up{
+    margin: 5px;
+}
+
+.chat{
+    position: fixed;
+    bottom: 0;
+    padding: 20px;
+}
+
+.message{
+    padding: 22px 18px;
+	flex: 0.2;
+	display: flex;
+	flex-direction: column;
+	background-color: #ffffff;
+	border-left: 1px solid #2d3d42;
+}
+
+.chatArea{
+    flex-grow: 1;
+	overflow-y: auto;
+}
+
+.controlbuttons{
+    letter-spacing: 0.3px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 4px 22px;
+	min-width: 80px;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.chat input{
+    outline: 0;
+    border: none;
 }
