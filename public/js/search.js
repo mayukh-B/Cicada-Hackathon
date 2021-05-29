@@ -16,17 +16,10 @@ async function getDoctorData(searchText) {
   })
   console.log(matches)
   // Results.classList.add('displayNone');
-<<<<<<< HEAD
-  if(searchText.length == 0){
-    matches = [];
-}
-  outputHtmlProject(matches);
-=======
   if (searchText.length == 0) {
     matches = []
   }
   outputHtmlProject(matches)
->>>>>>> 305fb3c4a077157431bd1a62256fc309704f6d20
 }
 
 const applyDebounce = function (fn, d) {
