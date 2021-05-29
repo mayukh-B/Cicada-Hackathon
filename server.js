@@ -240,6 +240,26 @@ app.post('/docRegister', function (req, res) {
     },
   )
 })
+/*=======================================================================
+                            DOCTOR FIND
+========================================================================*/
+app.get('/api/doctors', (req, res) => {
+  Doc.find({}, (err, foundUsers) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.json(foundUsers)
+    }
+  })
+})
+
+/*=======================================================================
+                            SEARCH
+========================================================================*/
+
+app.get('/users/search', (req, res) => {
+  res.render('searchPage')
+})
 
 /*=======================================================================
                             USER ROUTE DOCTOR PROFILE
@@ -250,10 +270,11 @@ app.get('/users/doctors/:id', (req, res) => {
     if (err) {
       console.log(err)
     } else {
-      console.log(foundDoctor)
+      // console.log(foundDoctor)
     }
   })
 })
+
 /*=======================================================================
                             DOCTOR LANDING
 ========================================================================*/
@@ -266,16 +287,40 @@ app.get('/docLanding', function (req, res) {
   }
 })
 
+/*=======================================================================
+                            DOCTOR CARD
+========================================================================*/
+// app.get('/users/doctors/:docId', (req, res) => {
+//   res.render('docCard', { docId: req.params.docId })
+// })
+
+app.get('/users/doctors/:id', (req, res) => {
+  const requestedDoctorId = req.params.id
+  // Doc.find({ _id: requestedDoctorId }, (err, foundDoctor) => {
+  //   if (err) {
+  //     console.log(err)
+  //   } else {
+  //      res.render('docCard', { foundDoctor: foundDoctor[0] })
+
+  //   }
+  // })
+  res.send(requestedDoctorId)
+})
+
 //***********************************************************************************
 
 //                      APPOINTMENT BOOKING AND CONFIRMATION ROUTES
 //***********************************************************************************
 
-app.get('/bookAppointment', (req, res) => {
+app.get('/user/bookAppointment', (req, res) => {
   res.render('bookAppointment')
 })
-
-app.post('/AppointmentForm', (req, res) => {
+app.post('/user/bookAppointment', (req, res) => {
+  const docId = req.body.docId
+  console.log(docId)
+  res.render('bookAppointment', { docId })
+})
+app.post('/user/AppointmentForm', (req, res) => {
   let name = req.body.name
   let email = req.body.email
   let phNum = req.body.phNum
@@ -291,7 +336,7 @@ app.post('/AppointmentForm', (req, res) => {
   })
 })
 
-app.get('/confirmAppointment', (req, res) => {
+app.get('/user/confirmAppointment', (req, res) => {
   res.render('confirmAppointment')
 })
 
