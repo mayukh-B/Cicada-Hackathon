@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
-    <form action="/userLogin" method="POST">
-        <label>UserName</label>
-        <input 
-            type="text" 
-            name="username" 
-            placeholder="Please Enter Username"
-        />
-        <label>Password</label>
-        <input 
-            type="text" 
-            name="password" 
-            placeholder="Please Enter Password"
-        />
-
-        <button type="submit">Login</button>
-    </form>
-
-    <a href="/userRegister">NEW USER???</a>
+    <div class="login-inner">
+        <div class="photo">
+            <img src="/images/user.svg">
+        </div>
+        <div class="login-user-form">
+            <h1>Login as User</h1>
+            <form action="/userLogin" method="POST">
+                <label>UserName</label>
+                <input 
+                    type="text" 
+                    name="username" 
+                    placeholder="Please Enter Username"
+                />
+                <label>Password</label>
+                <input 
+                    type="text" 
+                    name="password" 
+                    placeholder="Please Enter Password"
+                />
+                <div class="action-btn">
+                    <button class="btn" type="submit">Login</button>
+                </div>
+            </form>
+            <div class="action-btn-user">
+                <a href="/userRegister">Register Here</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
