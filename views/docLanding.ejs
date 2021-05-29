@@ -4,16 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css"> 
+    <title>Doctor Profile</title>
 </head>
 <body>
-    <h2>Welcome <%= name %></h2>
-    <h3>Name - <%= name %></h3>
-    <h3>Email - <%= email %></h3>
-    <h3>Mobile - <%= phNum %></h3>
-    <h3>Address - <%= address %></h3>
-
+    <h1>Welcome <%= name %></h1>
+    <div class="outer">
+            <div class="inner-left">
+                <h3><b>Name</b> - <%= name %></h3>
+                <h3><b><%= degree %></b></h3>
+                <h3><b>Email</b> - <%= email %></h3>
+                <h3><b>Mobile</b> - <%= phNum %></h3>
+                <h3><b>Address</b> - <%= address %></h3>
+            </div>
+            <div class="inner-right">
+                <% if(gender === "male"){ %>
+                        <img src="/images/DocM.jpg" height="200px" width="200px">
+                <% } else { %>
+                        <img src="/images/DocF.jpg" height="200px" width="200px">
+                <% } %>
+                
+                <h2><%= name %></h2>
+                <h3><%= degree %></h3>
+            </div>
+    </div>
     <h2>Your Pending Appointment Requests</h2>
+    <% pending.forEach((elem) => { %>
+        <h3>Patient Name - <%=elem.patientName%></h3>
+        <h3>Email - <%=elem.email%></h3>
+        <h3>Requested TimeSlot - <%=elem.slotTime%></h3>
+        <h3>Problem Description - <%=elem.description%></h3>
+        <button>Accept</button>
+        <button>Reject</button>
+   <%  }) %>
     <h2>Your Upcoming Appointments</h2>
 </body>
 </html>

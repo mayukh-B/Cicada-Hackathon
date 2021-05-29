@@ -288,7 +288,10 @@ app.get('/docLanding', function (req, res) {
     let email = req.user.email;
     let phNum = req.user.userPhNum;
     let address = req.user.address;
-    res.render('docLanding', {name, email, phNum, address});
+    let degree = req.user.degree;
+    let gender = req.user.gender;
+    let pending = req.user.pendingAppointment;
+    res.render('docLanding', {name, email, phNum, address, degree, gender, pending});
   }
   else{
     res.redirect("/docLogin");
