@@ -90,7 +90,11 @@ passport.deserializeUser(function (user, done) {
 })
 
 app.get('/', function (req, res) {
-  res.render('home')
+  res.render('landing')
+})
+
+app.get("/Login", function(req,res){
+  res.render("home")
 })
 
 /*=======================================================================
@@ -376,7 +380,11 @@ app.post("/user/quiz",(req,res)=>{
 })
 
 app.get("/user/result",(req,res)=>{
+  if(req.isAuthenticated()){
     res.render('result')
+  }else{
+    res.redirect("/l")
+  }
 })
 
 app.post("/user/result",(req,res)=>{
@@ -392,4 +400,12 @@ app.get("/user/activities",(req,res)=>{
     res.render('quiz')
 })
 
+
+//***********************************************************************************
+//                            Logout
+//*********************************************************************************** 
+app.get('/users/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
 
