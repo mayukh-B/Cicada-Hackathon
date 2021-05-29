@@ -13,6 +13,7 @@ const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
 const { start } = require('repl')
 const nodemailer = require('nodemailer')
+const cors = require('cors');
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -238,7 +239,7 @@ app.post('/docRegister', function (req, res) {
 /*=======================================================================
                             DOCTOR FIND
 ========================================================================*/
-app.get('/api/doctors', (req, res) => {
+app.get('/api/doctors', cors() , (req, res) => {
   Doc.find({}, (err, foundUsers) => {
     if (err) {
       console.log(err)
