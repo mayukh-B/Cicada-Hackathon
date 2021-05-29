@@ -1,43 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css"> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Doctor Profile</title>
-</head>
-<body>
+  </head>
+  <body>
+    <%- include('partials/navbar-Login') %> 
     <h1>Welcome <%= name %></h1>
     <div class="outer">
-            <div class="inner-left">
-                <h3><b>Name</b> - <%= name %></h3>
-                <h3><b><%= degree %></b></h3>
-                <h3><b>Email</b> - <%= email %></h3>
-                <h3><b>Mobile</b> - <%= phNum %></h3>
-                <h3><b>Address</b> - <%= address %></h3>
-            </div>
-            <div class="inner-right">
-                <% if(gender === "male"){ %>
-                        <img src="/images/DocM.jpg" height="200px" width="200px">
-                <% } else { %>
-                        <img src="/images/DocF.jpg" height="200px" width="200px">
-                <% } %>
-                
-                <h2><%= name %></h2>
-                <h3><%= degree %></h3>
-            </div>
+      <div class="inner-left">
+        <h3><b>Name</b> - <%= name %></h3>
+        <h3><b><%= degree %></b></h3>
+        <h3><b>Email</b> - <%= email %></h3>
+        <h3><b>Mobile</b> - <%= phNum %></h3>
+        <h3><b>Address</b> - <%= address %></h3>
+      </div>
+      <div class="inner-right">
+        <% if(gender === "male"){ %>
+        <img src="/images/DocM.jpg" height="200px" width="200px" />
+        <% } else { %>
+        <img src="/images/DocF.jpg" height="200px" width="200px" />
+        <% } %>
+
+        <h2><%= name %></h2>
+        <h3><%= degree %></h3>
+      </div>
     </div>
+    <div class="appointmentHandling">
     <h2>Your Pending Appointment Requests</h2>
-    <% pending.forEach((elem) => { %>
+    <div class="pendingAppointments">
+      <% pending.forEach((elem) => { %>
+      <div class="appointmentsCard">
         <h3>Patient Name - <%=elem.patientName%></h3>
-        <h3>Email - <%=elem.email%></h3>
+        <h3><%=elem.email%></h3>
+        <h3>Requested Date- <%=elem.date%></h3>
         <h3>Requested TimeSlot - <%=elem.slotTime%></h3>
-        <h3>Problem Description - <%=elem.description%></h3>
-        <button>Accept</button>
-        <button>Reject</button>
+        <h3>Problem<br> Description - <%=elem.description%></h3>
+        <form action="/user/acceptAppointment" method="POST">
+            <input value="<%=elem.patientName%>" name="name" style="display: none;">
+            <input value="<%=elem.email%>" name="email" style="display: none;">
+            <input value="<%=elem.date%>" name="date" style="display: none;">
+            <input value="<%=elem.slotTime%>" name="slotTime" style="display: none;">
+            <input value="<%=elem.description%>" name="description" style="display: none;">
+            <input value="<%=elem.id%>" name="id" style="display: none;">
+            <input value="<%=docId%>" name="docId" style="display: none;">
+            <input value="<%=email%>" name="demail" style="display: none;">
+            <button type="submit">Accept</button>
+        </form>
+        <form action="/user/rejectAppointment" method="POST">
+            <input value="<%=elem.patientName%>" name="name" style="display: none;">
+            <input value="<%=elem.email%>" name="email" style="display: none;">
+            <input value="<%=elem.date%>" name="date" style="display: none;">
+            <input value="<%=elem.slotTime%>" name="slotTime" style="display: none;">
+            <input value="<%=elem.description%>" name="description" style="display: none;">
+            <input value="<%=elem.id%>" name="id" style="display: none;">
+            <input value="<%=docId%>" name="docId" style="display: none;">
+            <button type="submit">Reject</button>
+        </form>
+        </div>
    <%  }) %>
+    </div>
+   <div class="upcomingAppointments">
     <h2>Your Upcoming Appointments</h2>
+    <div class="Appointments">
+      <% booked.forEach((elem) => { %>
+        <div class="appointmentsCard">
+          <h3>Patient Name - <%=elem.patientName%></h3>
+          <h3><%=elem.email%></h3>
+          <h3>Problem <br> Description - <%=elem.description%></h3>
+        </div>
+       <%  }) %>
+    </div>
+   </div>   
+  </div>
 </body>
 </html>
-

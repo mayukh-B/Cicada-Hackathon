@@ -1,10 +1,334 @@
 *{
-    font-family: 'Noto Sans TC', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
-body{
-    background-color: rgb(235, 235, 229);
+.About{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 200px;
+}
+.box{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* .card{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(255, 245, 179);
+    border-radius: 5px;
+} */
+.doctorCard{
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: beige;
+    border-radius: 5px;
+}
+
+.doctorDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.searchArea{
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.inputActions input{
+    width: 500px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: rgb(235, 235, 235);
+    border: none;
+}
+
+
+.inputActions button{
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #FFC93C;
+    color: white;
+    width: 150px;
+}
+.inputActions a{
+    text-decoration: none;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #FFC93C;
+    color: white;
+    width: 150px;
+}
+.displayHide{
+    display: none;
+}
+.confirm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.confirm button{
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #FFC93C;
+    color: white;
+    width: 200px;
+}
+
+.confirm a{
+    text-decoration: none;
+    color: white;
+}
+
+.confirm form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media only screen and (max-width: 400px) {
+    .doctorCard{
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: beige;
+        border-radius: 5px;
+    }
+    .inputActions{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .inputActions input{
+        width: 200px;
+        margin-right: 15px;
+    } 
+    .inputActions button{
+        display: none;
+    }
+    .displayHide{
+        display: block;
+    }
+    .fas{
+        color: #FFC93C;
+    }
+}
+/* .doctorDetails p{
+    margin-bottom: ;
+} */
+.scoreCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .scoreCard button{
+    margin-right: auto;
+} */
+.upcomingAppointments{
+    display: flex;
+    flex-direction: column;
+}
+.Appointments{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.appointmentHandling{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.landing{
+    z-index: 0;
+}
+.navbar-responsive{
+    display: none;
+}
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 50px;
+    color: #fff;
+    background-color: #FFC93C;
+    border-radius: 5px;
+}
+.button a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.button:hover{
+    transition: 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 50px;
+    color: rgb(0, 0, 0);
+    background-color: #ffdd88;
+    border-radius: 5px;
+}
+
+.button a:hover{
+    transition: 0.5s ease-in-out;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+.navbar{
+    margin: 0;
+    padding: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbarLogin{
+    margin: 0;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-responsive-content{
+    position: fixed;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 2;
+    width: 200px;
+    height: 100vh;
+    background-color: #FFC93C;
+    transform: translateX(-110%);
+    display: flex;
+}
+.navs-responsive{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.navs-responsive a{
+    font-size: 20px;
+text-decoration: none;
+color: #fff;
+}
+
+.media-responsive{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.media-responsive i{
+    width: 20px;
+    color: #fff;
+}
+.logo span{
+    font-size: large;
+    color: #FFC93C;
+    font-weight: bolder;
+}
+.logo a{
+    text-decoration: none;
+    color: #FFC93C;
+}
+.navs{
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.navs a{
+    text-decoration: none;
+    color:#FFC93C;
+    font-weight: bolder;
+}
+.media{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.media i{
+    color: #FFC93C;
+}
+
+.brain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.brain img{
+    padding: 0;
+    width: 400px;
+}
+.boldBig{
+    margin-top: 0;
+    color: #FFC93C;
+    font-size: 56px;
+}
+@media only screen and (max-width: 400px) {
+    .navbar {
+      display: none;
+    }
+    .navbarLogin{
+        display: none;
+    }
+    .brain img{
+        width:300px
+    }
+    .brain p{
+        text-align: center;
+    }
+    .boldBig{
+        margin-top: 0;
+        color: #FFC93C;
+        font-size: 32px;
+    }
+    .navbar-responsive{
+        display: block;
+    }
+  }
+
+.addTranslate{
+    transition: 0.5s ease-out;
+    transform: translateX(0);
+}
+
+.removeTranslate{
+    transition: 0.5s ease-out;
+    transform: translateX(-110%);
+}
 .displayNone{
     display:none;
 }
@@ -572,3 +896,129 @@ input{
     color: white;
     font-weight: bold;
   }
+.pendingAppointments{
+    /* width: 100vw; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.appointmentsCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:350px;
+    height:400px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: beige;
+    
+}
+/* ._container{
+    padding:50px;
+    display:flex;
+    flex-direction: column;
+} */
+.contact-info{
+    margin-bottom: 70px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.avatar img{
+    width: 100px;
+}
+
+.nutritionalGuidelines{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    flex: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.nutritionalGuidelines h3{
+    color:#AFB3B4
+}
+.physicalWellBeing{
+    /* width: 100vw; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.image{
+    width:300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:30px ;
+}
+.image img{
+    width: 100%;
+    height: 200px;
+}
+
+.image p{
+    text-align: justify;
+}
+
+.flexContainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.vision{
+    display: flex;
+    padding: 50px;
+}
+.text{
+    display: flex;
+    flex-direction:column ;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+.aboutImages{
+    width: 50%;
+}
+
+.topImages{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#img1{
+    width: 45%;
+}
+#img2{
+    width: 45%;
+}
+
+.bottomImage{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottomImage img{
+    width: 93%;
+    height: 100%;
+}
+.boldBigAbout{
+    margin-top: 0;
+    color: #FFC93C;
+    font-size: 32px;
+}

@@ -72,25 +72,9 @@ const docSchema = new mongoose.Schema({
       review: String,
     },
   ],
+  pendingAppointment: [],
+  bookedAppointment: [],
 
-  pendingAppointment: [
-    {
-      patientName: String,
-      date: String,
-      timeSlot: String,
-      description: String,
-      email: String,
-    },
-  ],
-  bookedAppointment: [
-    {
-      patientName: String,
-      date: String,
-      timeSlot: String,
-      description: String,
-      email: String,
-    },
-  ],
 })
   docSchema.plugin(passportLocalMongoose);
   const Doc = mongoose.model("Doc",docSchema);
@@ -114,15 +98,13 @@ passport.deserializeUser(function (user, done) {
                             HOME ROUTE
 ========================================================================*/
 app.get('/', function (req, res) {
-  res.render('home')
+  res.render('landing')
 })
 
-/*=======================================================================
-                            LOGIN ROUTE
-========================================================================*/
-app.get('/login', function (req, res) {
-  res.render('login')
+app.get("/login", function(req,res){
+  res.render("home")
 })
+
 
 /*=======================================================================
                             USER LOGIN
@@ -289,24 +271,6 @@ Doc.register({
 )
 });
 
-/*=======================================================================
-                            DOCTOR LANDING
-========================================================================*/
-app.get('/docLanding', function (req, res) { 
-  if(req.isAuthenticated()){
-    let name = req.user.name;
-    let email = req.user.email;
-    let phNum = req.user.userPhNum;
-    let address = req.user.address;
-    let degree = req.user.degree;
-    let gender = req.user.gender;
-    let pending = req.user.pendingAppointment;
-    res.render('docLanding', {name, email, phNum, address, degree, gender, pending});
-  }
-  else{
-    res.redirect("/docLogin");
-  }
-});
 
 
 /*=======================================================================
@@ -321,7 +285,12 @@ app.get('/api/doctors', (req, res) => {
     }
   })
 })
-
+/*=======================================================================
+                            ABOUT
+========================================================================*/
+app.get('/users/about', (req, res) => {
+  res.render('about')
+})
 /*=======================================================================
                             SEARCH
 ========================================================================*/
@@ -332,13 +301,12 @@ app.get('/users/search', (req, res) => {
 /*=======================================================================
                             USER ROUTE DOCTOR PROFILE
 ========================================================================*/
-app.get("/user/profile/:id",(req,res) => {
-  if(req.isAuthenticated()){
-    res.render("userProfile",{user: req.user})
-  }else{
-    res.redirect("/userLogin");
+app.get('/user/profile/:id', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render('userProfile', { user: req.user })
+  } else {
+    res.redirect('/userLogin')
   }
-
 })
 /*=======================================================================
                             USER ROUTE DOCTOR PROFILE
@@ -354,19 +322,46 @@ app.get('/users/doctors/:id', (req, res) => {
   })
 })
 
+/*=======================================================================
+                            DOCTOR LANDING
+========================================================================*/
+app.get('/docLanding', function (req, res) {
+  if (req.isAuthenticated()) {
+    let docId = req.user._id
+    Doc.find({ _id: docId }, (err, foundUser) => {
+      if (err) {
+        console.log(err)
+      } else {
+        res.render('docLanding', {
+          name: foundUser[0].name,
+          email: foundUser[0].email,
+          phNum: foundUser[0].userPhNum,
+          address: foundUser[0].address,
+          degree: foundUser[0].degree,
+          gender: foundUser[0].gender,
+          pending: foundUser[0].pendingAppointment,
+          booked: foundUser[0].bookedAppointment,
+          docId: foundUser[0]._id,
+        })
+      }
+    })
+  } else {
+    res.redirect('/docLogin')
+  }
+})
 
 //***********************************************************************************
 
 //                      APPOINTMENT BOOKING AND CONFIRMATION ROUTES
 //***********************************************************************************
 
-app.get('/user/bookAppointment', (req, res) => {
-  res.render('bookAppointment')
-})
 app.post('/user/bookAppointment', (req, res) => {
-  const docId = req.body.docId
-  console.log(docId)
-  res.render('bookAppointment', { docId })
+  if (req.isAuthenticated()) {
+    const id = req.user._id
+    const docId = req.body.docId
+    console.log(docId)
+    res.render('bookAppointment', { id, docId })
+  }
 })
 app.post('/user/AppointmentForm', (req, res) => {
   const obj = {
@@ -376,6 +371,7 @@ app.post('/user/AppointmentForm', (req, res) => {
     date: req.body.date,
     slotTime: req.body.slotTime,
     description: req.body.descr,
+    id: req.body.id,
   }
   let docId = req.body.docId
   Doc.find({ _id: docId }, (err, foundDoctor) => {
@@ -387,6 +383,140 @@ app.post('/user/AppointmentForm', (req, res) => {
     }
   })
   res.send('Succefully booked')
+})
+
+//***********************************************************************************
+//                      DOCTOR ACCEPTING AND REJECTING APPOINTMENTS ROUTE
+//***********************************************************************************
+
+app.post('/user/acceptAppointment', (req, res) => {
+  const obj = {
+    patientName: req.body.name,
+    email: req.body.email,
+    phNum: req.body.phNum,
+    date: req.body.date,
+    slotTime: req.body.slotTime,
+    description: req.body.description,
+    id: req.body.id,
+  }
+  let id = req.body.id
+  let docId = req.body.docId
+  let patientEmail = req.body.email
+  let docEmail = req.body.demail
+
+  Doc.find({ _id: docId }, (err, foundDoctor) => {
+    if (err) {
+      console.log(err)
+    } else {
+      foundDoctor[0].bookedAppointment.push(obj)
+      foundDoctor[0].save()
+
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      })
+
+      var mailOptions = {
+        from: process.env.EMAIL,
+        subject: 'Appointment Scheduled',
+        text: `Your appointment has been scheduled successfully.`,
+        to: patientEmail,
+      }
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log('Email sent:' + info.response)
+        }
+      })
+
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      })
+
+      var mailOptions = {
+        from: process.env.EMAIL,
+        subject: 'Appointment Scheduled',
+        text: `Your appointment has been scheduled successfully.`,
+        to: docEmail,
+      }
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log('Email sent:' + info.response)
+        }
+      })
+    }
+  })
+
+  Doc.findByIdAndUpdate(
+    docId,
+    { $pull: { pendingAppointment: { id: id } } },
+    function (err, model) {
+      if (err) {
+        console.log(err)
+        return res.send(err)
+      }
+      return res.redirect('/docLanding')
+    },
+  )
+})
+
+app.post('/user/rejectAppointment', (req, res) => {
+  const obj = {
+    patientName: req.body.name,
+    email: req.body.email,
+    phNum: req.body.phNum,
+    date: req.body.date,
+    slotTime: req.body.slotTime,
+    description: req.body.descr,
+    id: req.body.id,
+  }
+  let id = req.body.id
+  let docId = req.body.docId
+  let patientEmail = req.body.email
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  })
+
+  var mailOptions = {
+    from: process.env.EMAIL,
+    subject: 'Appologies!! meeting cancelled',
+    text: `Your appointment has been cancelled by the doctor please try on a later date.`,
+    to: patientEmail,
+  }
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log('Email sent:' + info.response)
+    }
+  })
+
+  Doc.findByIdAndUpdate(
+    docId,
+    { $pull: { pendingAppointment: { id: id } } },
+    function (err, model) {
+      if (err) {
+        console.log(err)
+        return res.send(err)
+      }
+      res.redirect('/docLanding')
+    },
+  )
 })
 
 //***********************************************************************************
@@ -416,28 +546,44 @@ io.on('connection', (socket) => {
 //***********************************************************************************
 //                            QUIZ ROUTE
 //*********************************************************************************** 
-
+// app.get("/mobQuiz",(req,res)=>{
+//   res.render()
+// })
 app.get("/userLanding",(req,res)=>{
     res.render('userLanding')
 })
 
-app.get("/user/quiz",(req,res)=>{
-    res.render('quiz')
+app.get("/user/mobQuiz",(req,res)=>{
+  if(req.isAuthenticated()){
+    res.render('mobQuiz',{user: req.user})
+  }else{
+    res.redirect("/userLogin");
+  }
 })
 
+app.get("/user/quiz",(req,res)=>{
+  if(req.isAuthenticated()){
+    res.render('quiz',{user: req.user})
+  }else{
+    res.redirect("/userLogin");
+  }
+})
 app.post("/user/quiz",(req,res)=>{
     res.redirect('/user/quiz')
 })
 
 app.get("/user/result",(req,res)=>{
+  if(req.isAuthenticated()){
     res.render('result')
+  }else{
+    res.redirect("/l")
+  }
 })
 
-app.post("/user/result",(req,res)=>{
-    console.log(req.body)
-    res.redirect('/user/result')
+app.post('/user/result', (req, res) => {
+  console.log(req.body)
+  res.redirect('/user/result')
 })
-
 
 //***********************************************************************************
 //                            ACTIVITIES
@@ -478,3 +624,13 @@ var port = process.env.PORT || 5000;
 server.listen(port, function () {
     console.log('Server has started on PORT : ' + port);
 });
+
+
+//***********************************************************************************
+//                            Logout
+//*********************************************************************************** 
+app.get('/users/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
