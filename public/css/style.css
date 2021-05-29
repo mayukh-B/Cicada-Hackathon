@@ -4,3 +4,76 @@
 .displayAdd{
     display:block;
 }
+
+.quiz_header{
+margin-top: 150px;
+left: 363px;
+width: 640px;
+height: 76px;
+text-align: center;
+font: normal normal bold 56px/66px Noto Sans;
+letter-spacing: 0px;
+color: #3C3C3C;
+opacity: 1;
+}
+
+.quiz_text{
+top: 344px;
+left: 403px;
+width: 560px;
+height: 48px;
+text-align: center;
+font: normal normal 600 18px/24px Noto Sans;
+letter-spacing: 0px;
+color: #3D3D3D;
+opacity: 1;
+}
+
+.quiz_button button{
+
+font: normal normal 600 16px/22px Noto Sans;
+letter-spacing: 0px;
+color: #FCFCFC;
+opacity: 1;
+background-color:#FFC93C;
+padding:15px 32px;
+border-radius: 12px;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+} 
+
+.submit_landing button{
+border-radius: 12px;
+text-align: center;
+font: normal normal 600 16px/22px Noto Sans;
+letter-spacing: 0px;
+color: #FCFCFC;
+opacity: 1;
+background-color:#FFC93C;
+padding:15px 32px;
+margin-left:50px;
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+} 
+
+.button_landing{
+    display:flex;
+    margin-top:50px;
+    justify-content:center;
+    align-items:center;
+}
+
+.quiz_button button:hover {background-color: #ff9a3c}
+
+.quiz_button button:active {
+  background-color: #FFC93C;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  transform: translateY(4px);
+}
+
+.submit_landing button:hover {background-color: #ff9a3c}
+
+.submit_landing button:active {
+  background-color: #FFC93C;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  transform: translateY(4px);
+}

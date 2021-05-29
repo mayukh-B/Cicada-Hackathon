@@ -62,12 +62,21 @@ const docSchema = new mongoose.Schema({
   name: String,
   email: String,
   userPhNum: Number,
-  address:String,
+  address: String,
   gender: String,
-  degree:String,
+  degree: String,
+  experience: String,
+  reviews: [
+    {
+      patientName: String,
+      review: String,
+    },
+  ],
+
   pendingAppointment: [
     {
       patientName: String,
+      date: String,
       timeSlot: String,
       description: String,
       email: String,
@@ -76,16 +85,13 @@ const docSchema = new mongoose.Schema({
   bookedAppointment: [
     {
       patientName: String,
+      date: String,
       timeSlot: String,
       description: String,
       email: String,
     },
   ],
-});
-
-  docSchema.plugin(passportLocalMongoose);
-  const Doc = mongoose.model("Doc",docSchema);
-  passport.use('docLocal', new LocalStrategy(Doc.authenticate()));
+})
 
   /*=======================================================================
                             SERIALIZE AND DESERIALIZE
@@ -352,15 +358,25 @@ app.post("/user/result",(req,res)=>{
 //                            ACTIVITIES
 //*********************************************************************************** 
 app.get("/user/activities",(req,res)=>{
-    res.render('quiz')
+    res.render('activities')
 })
-// app.get("/user/:id",(req,res) => {
-//   // if(req.isAuthenticated()){
-//     const reqUser = req.params.id;
-//     res.render("userProfile")
-//   // }else{
-//   //   res.redirect("/userLogin");
-//   // }
 
-// })
+app.get("/user/activities/breathing",(req,res)=>{
+  res.render('breathing')
+})
 
+app.get("/user/activities/meditation",(req,res)=>{
+  res.render('meditation')
+})
+
+app.get("/user/activities/walking",(req,res)=>{
+  res.render('walking');
+});
+
+app.get("/user/activities/running",(req,res)=>{
+  res.render('running');
+});
+
+app.get("/user/activities/cycling",(req,res)=>{
+  res.render('cycling');
+});
