@@ -34,16 +34,40 @@
       <div class="appointmentsCard">
         <h3>Patient Name - <%=elem.patientName%></h3>
         <h3>Email - <%=elem.email%></h3>
+        <h3>Requested Date- <%=elem.date%></h3>
         <h3>Requested TimeSlot - <%=elem.slotTime%></h3>
         <h3>Problem Description - <%=elem.description%></h3>
-        <div>
-            <button>Accept</button>
-            <button>Reject</button>
-        </div>
-      </div>
-      <% }) %>
-    </div>
+        <form action="/user/acceptAppointment" method="POST">
+            <input value="<%=elem.patientName%>" name="name" style="display: none;">
+            <input value="<%=elem.email%>" name="email" style="display: none;">
+            <input value="<%=elem.date%>" name="date" style="display: none;">
+            <input value="<%=elem.slotTime%>" name="slotTime" style="display: none;">
+            <input value="<%=elem.description%>" name="description" style="display: none;">
+            <input value="<%=elem.id%>" name="id" style="display: none;">
+            <input value="<%=docId%>" name="docId" style="display: none;">
+            <input value="<%=email%>" name="demail" style="display: none;">
+            <button type="submit">Accept</button>
+        </form>
+        <form action="/user/rejectAppointment" method="POST">
+            <input value="<%=elem.patientName%>" name="name" style="display: none;">
+            <input value="<%=elem.email%>" name="email" style="display: none;">
+            <input value="<%=elem.date%>" name="date" style="display: none;">
+            <input value="<%=elem.slotTime%>" name="slotTime" style="display: none;">
+            <input value="<%=elem.description%>" name="description" style="display: none;">
+            <input value="<%=elem.id%>" name="id" style="display: none;">
+            <input value="<%=docId%>" name="docId" style="display: none;">
+            <button type="submit">Reject</button>
+        </form>
 
+       
+   <%  }) %>
     <h2>Your Upcoming Appointments</h2>
-  </body>
+    <% booked.forEach((elem) => { %>
+        <h3>Patient Name - <%=elem.patientName%></h3>
+        <h3>Email - <%=elem.email%></h3>
+        <h3>Requested Date- <%=elem.date%></h3>
+        <h3>Requested TimeSlot - <%=elem.slotTime%></h3>
+        <h3>Problem Description - <%=elem.description%></h3>
+     <%  }) %>
+</body>
 </html>
