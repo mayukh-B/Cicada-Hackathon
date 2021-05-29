@@ -1,0 +1,41 @@
+<%- include('partials/header') -%>
+<%- include('partials/navbar-Login') %>
+    <form action="/user/result" method="POST">
+        <div class="main-div ">
+            <div class="inner-div ">
+                <h2 class="question" id="ques">Question</h3>
+                <ul>
+                <li>
+                    <input type="radio" name="ans" id="ans1" class="answer" >
+                    <label for="ans1" id="option1" >Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="ans" id="ans2" class="answer" >
+                    <label for="ans2" id="option2" >Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="ans" id="ans3" class="answer">
+                    <label for="ans3" id="option3">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="ans" id="ans4" class="answer" >
+                    <label for="ans4" id="option4" >Answer</label>
+                </li>
+                </ul>
+                
+                <div id="btn" class="btn">Submit</div>
+                <input type="number" id="score" name="score1" style="display:none;">
+                <div id="showScore" class="scoreArea">
+                    <h3 id="result"></h3>
+                    <h3 id="remark"></h3>
+                    <a class="displayNone button" href="/user/profile/<%= user._id%>" id="end" >End Test</a>
+                </div>
+                
+            </div>
+        </div>
+
+    </form>
+
+    <script src="/js/script.js"></script>
+
+<%- include('partials/footer') -%>

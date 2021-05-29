@@ -8,6 +8,7 @@
     <title>Doctor Profile</title>
   </head>
   <body>
+    <%- include('partials/navbar-Login') %> 
     <h1>Welcome <%= name %></h1>
     <div class="outer">
       <div class="inner-left">
@@ -28,15 +29,16 @@
         <h3><%= degree %></h3>
       </div>
     </div>
+    <div class="appointmentHandling">
     <h2>Your Pending Appointment Requests</h2>
     <div class="pendingAppointments">
       <% pending.forEach((elem) => { %>
       <div class="appointmentsCard">
         <h3>Patient Name - <%=elem.patientName%></h3>
-        <h3>Email - <%=elem.email%></h3>
+        <h3><%=elem.email%></h3>
         <h3>Requested Date- <%=elem.date%></h3>
         <h3>Requested TimeSlot - <%=elem.slotTime%></h3>
-        <h3>Problem Description - <%=elem.description%></h3>
+        <h3>Problem<br> Description - <%=elem.description%></h3>
         <form action="/user/acceptAppointment" method="POST">
             <input value="<%=elem.patientName%>" name="name" style="display: none;">
             <input value="<%=elem.email%>" name="email" style="display: none;">
@@ -58,16 +60,21 @@
             <input value="<%=docId%>" name="docId" style="display: none;">
             <button type="submit">Reject</button>
         </form>
-
-       
+        </div>
    <%  }) %>
+    </div>
+   <div class="upcomingAppointments">
     <h2>Your Upcoming Appointments</h2>
-    <% booked.forEach((elem) => { %>
-        <h3>Patient Name - <%=elem.patientName%></h3>
-        <h3>Email - <%=elem.email%></h3>
-        <h3>Requested Date- <%=elem.date%></h3>
-        <h3>Requested TimeSlot - <%=elem.slotTime%></h3>
-        <h3>Problem Description - <%=elem.description%></h3>
-     <%  }) %>
+    <div class="Appointments">
+      <% booked.forEach((elem) => { %>
+        <div class="appointmentsCard">
+          <h3>Patient Name - <%=elem.patientName%></h3>
+          <h3><%=elem.email%></h3>
+          <h3>Problem <br> Description - <%=elem.description%></h3>
+        </div>
+       <%  }) %>
+    </div>
+   </div>   
+  </div>
 </body>
 </html>

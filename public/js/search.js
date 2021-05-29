@@ -39,12 +39,12 @@ function outputHtmlProject(matches) {
     const html = matches
       .map(
         (match) =>
-          `<div class="projectCard">
-                <div class="projectDetails">
+          `<div class="doctorCard">
+                <div class="doctorDetails">
                     <p><b>${match.name}</b></p>
                     <p><b>${match.degree}</b></p>
                 </div>
-                <div class="projectStartDate">
+                <div class="doctorLocation">
                     <p>${match.address}</p>
                 </div>
                 <div class="button">

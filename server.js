@@ -75,11 +75,11 @@ const docSchema = new mongoose.Schema({
   ],
   pendingAppointment: [],
   bookedAppointment: [],
-})
 
-docSchema.plugin(passportLocalMongoose)
-const Doc = mongoose.model('Doc', docSchema)
-passport.use('docLocal', new LocalStrategy(Doc.authenticate()))
+})
+  docSchema.plugin(passportLocalMongoose);
+  const Doc = mongoose.model("Doc",docSchema);
+  passport.use('docLocal', new LocalStrategy(Doc.authenticate()));
 
 /*=======================================================================
                             SERIALIZE AND DESERIALIZE
@@ -93,20 +93,19 @@ passport.deserializeUser(function (user, done) {
   if (user != null) done(null, user)
 })
 
-app.get('/', function (req, res) {
-  res.render('landing')
-})
 
-app.get("/Login", function(req,res){
-  res.render("home")
-})
 
 /*=======================================================================
                             HOME ROUTE
 ========================================================================*/
-app.get('/docLogin', function (req, res) {
-  res.render('docLogin')
+app.get('/', function (req, res) {
+  res.render('landing')
 })
+
+app.get("/login", function(req,res){
+  res.render("home")
+})
+
 
 /*=======================================================================
                             USER LOGIN
@@ -145,28 +144,54 @@ app.get('/userRegister', function (req, res) {
 })
 
 app.post('/userRegister', function (req, res) {
-  User.register(
-    {
-      username: req.body.username,
-      name: req.body.name,
-      email: req.body.email,
-      userPhNum: req.body.phnum,
-      address: req.body.address,
-      dob: req.body.dob,
-      gender: req.body.gender,
-    },
-    req.body.password,
-    function (err, user) {
-      if (err) {
-        console.log(err)
-        res.redirect('/userRegister')
-      } else {
-        passport.authenticate('userLocal')(req, res, function () {
-          res.redirect('/userLanding')
-        })
-      }
-    },
-  )
+  User.register({
+        username: req.body.username,
+        name: req.body.name,
+        email: req.body.email,
+        userPhNum: req.body.phnum,
+        address:req.body.address,
+        dob:req.body.dob,
+        gender: req.body.gender,        
+
+      }, req.body.password,
+      function(err,user){
+        if(err){
+          console.log(err);
+          res.redirect("/userRegister");
+        }
+        else{
+        
+          passport.authenticate('userLocal')(req, res, function () {
+          res.redirect('/userLanding');
+
+          var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+        });
+
+        var mailOptions = {
+            from: process.env.EMAIL,
+            to: req.body.email,
+            subject: "Succesfully Registered to Mind's Matter",
+            text: `Thanks for registering in Mind's Matter.
+                  We care for your mental health.
+                  Explore more of the activities in our website to keep your mind healthy.
+                  Also consult specialized psychologist for help.`            
+        };
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Email sent:" + info.response);
+            }
+        });
+
+          });
+        }
+      })
 })
 
 /*=======================================================================
@@ -174,8 +199,7 @@ app.post('/userRegister', function (req, res) {
 ========================================================================*/
 app.get('/userLanding', function (req, res) {
   if (req.isAuthenticated()) {
-    res.render('userLanding', { id: req.user._id })
-    console.log(req.user)
+    res.render('userLanding',{id: req.user._id})
   } else {
     res.redirect('/userLogin')
   }
@@ -218,28 +242,38 @@ app.get('/docRegister', function (req, res) {
 })
 
 app.post('/docRegister', function (req, res) {
-  Doc.register(
-    {
-      username: req.body.username,
-      name: req.body.name,
-      email: req.body.email,
-      userPhNum: req.body.phnum,
-      address: req.body.address,
-      gender: req.body.gender,
-    },
-    req.body.password,
-    function (err, doc) {
-      if (err) {
-        console.log(err)
-        res.redirect('/docRegister')
-      } else {
-        passport.authenticate('docLocal')(req, res, function () {
-          res.redirect('/docLanding')
-        })
-      }
-    },
-  )
-})
+Doc.register({
+  username: req.body.username,
+  name: req.body.name,
+  email: req.body.email,
+  userPhNum: req.body.phnum,
+  address:req.body.address,
+  gender: req.body.gender,
+  degree:req.body.degree,
+  experience:req.body.experience,
+  reviews:[{
+    patientName:String,
+    review:String,
+  }],
+  pendingAppointment: [],
+  bookedAppointment: [],
+  }, req.body.password,
+  function(err,doc){
+    if(err){
+      console.log(err);
+      res.redirect("/docRegister");
+    }
+    else{
+      passport.authenticate('docLocal')(req, res, function () {
+        res.redirect('/docLanding');
+      })
+    }
+  }
+)
+});
+
+
+
 /*=======================================================================
                             DOCTOR FIND
 ========================================================================*/
@@ -252,7 +286,12 @@ app.get('/api/doctors', cors() , (req, res) => {
     }
   })
 })
-
+/*=======================================================================
+                            ABOUT
+========================================================================*/
+app.get('/users/about', (req, res) => {
+  res.render('about')
+})
 /*=======================================================================
                             SEARCH
 ========================================================================*/
@@ -348,7 +387,6 @@ app.post('/user/AppointmentForm', (req, res) => {
 })
 
 //***********************************************************************************
-
 //                      DOCTOR ACCEPTING AND REJECTING APPOINTMENTS ROUTE
 //***********************************************************************************
 
@@ -359,7 +397,7 @@ app.post('/user/acceptAppointment', (req, res) => {
     phNum: req.body.phNum,
     date: req.body.date,
     slotTime: req.body.slotTime,
-    description: req.body.descr,
+    description: req.body.description,
     id: req.body.id,
   }
   let id = req.body.id
@@ -509,11 +547,6 @@ io.on('connection', (socket) => {
   })
 })
 
-var port = process.env.PORT || 5000
-server.listen(port, function () {
-  console.log('Server has started on PORT : ' + port)
-})
-
 //***********************************************************************************
 //                            QUIZ ROUTE
 //*********************************************************************************** 
@@ -525,10 +558,20 @@ app.get("/userLanding",(req,res)=>{
 })
 
 app.get("/user/mobQuiz",(req,res)=>{
-    res.render('mobQuiz')
+  if(req.isAuthenticated()){
+    res.render('mobQuiz',{user: req.user})
+  }else{
+    res.redirect("/userLogin");
+  }
 })
 
-
+app.get("/user/quiz",(req,res)=>{
+  if(req.isAuthenticated()){
+    res.render('quiz',{user: req.user})
+  }else{
+    res.redirect("/userLogin");
+  }
+})
 app.post("/user/quiz",(req,res)=>{
     res.redirect('/user/quiz')
 })
@@ -548,10 +591,43 @@ app.post('/user/result', (req, res) => {
 
 //***********************************************************************************
 //                            ACTIVITIES
-//***********************************************************************************
-app.get('/user/activities', (req, res) => {
-  res.render('quiz')
+//*********************************************************************************** 
+app.get("/user/activities",(req,res)=>{
+  res.render('activities')
 })
+
+
+//***********************************************************************************
+//                            ACTIVITIES DETAILS
+//*********************************************************************************** 
+
+app.get("/user/activities/walking",(req,res)=>{
+  res.render('walking');
+});
+
+app.get("/user/activities/running",(req,res)=>{
+  res.render('running');
+});
+
+app.get("/user/activities/cycling",(req,res)=>{
+  res.render('cycling');
+});
+app.get("/user/activities/breathing",(req,res)=>{
+  res.render('breathing')
+})
+
+app.get("/user/activities/meditation",(req,res)=>{
+  res.render('meditation')
+})
+
+//***********************************************************************************
+//                            APP LISTING
+//*********************************************************************************** 
+
+var port = process.env.PORT || 5000;
+server.listen(port, function () {
+    console.log('Server has started on PORT : ' + port);
+});
 
 
 //***********************************************************************************

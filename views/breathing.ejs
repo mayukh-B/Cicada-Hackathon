@@ -1,0 +1,39 @@
+<%- include('partials/header') -%>
+
+<%- include('partials/navbar-Login') %>
+<div class="container whole-breathing">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <div class="breathing-text">
+                <h1 class="breathing-head">If you want to conquer the anxiety of life, live in the moment, live in the breath.</h1>
+                
+                <p class="breathing-body">Breathing is an automatic function of the body that is controlled by the 
+                respiratory centre of the brain. When we feel stressed, our breathing rate and pattern changes as part of the 
+                ‘fight-or-flight response’.
+                Fortunately, we also have the power to deliberately change our own breathing. 
+                Scientific studies have shown that controlling your breath can help to manage stress 
+                and stress-related conditions. Many people use their breathing to help promote relaxation and reduce stress.
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <img class="card-img-top" src="/images/breathing.jpg" alt="breathing" srcset="">
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <h2 class="timerH1">Relax and take deep breaths.Try to do this for atleast 2minutes</h2>
+    <div id="display">
+        00:00:00
+    </div>
+
+
+    <div class="btn-timer">
+        <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
+    </div>
+    
+</div>
+<script type="text/javascript" src="/js/timer.js"></script>
+<%- include('partials/footer') -%>

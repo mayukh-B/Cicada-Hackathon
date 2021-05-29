@@ -1,17 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <%- include('partials/navbar-Login') %> 
-    <a href="/user/profile/<%= id %>">Profile</a>
-    <form action="/user/quiz" method="POST">
-        <button type="submit">Take Quiz</button>
-    </form>
-    <a href="/users/search">Book Appointment</a>
-</body>
-</html>
+<%- include('partials/header') -%>
+
+<div class="userLanding container">
+    <div class="row">
+        <div class="quiz_header container text-center">
+            <p>Quiz For Mental Ability<p>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="quiz_text container">
+            <p>Take a proactive approach to your mental health and well-being with these free, 
+                medically-reviewed quizzes.This will help us know you better</p>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="button_landing">
+                <!-- <a class=" d-flex justify-content-right quiz_button " href="/user/quiz">Take Quiz</a>
+                <a class=" d-flex justify-content-left submit_landing" type="submit">Book Appointment</a>   -->
+                <div class="button_landing">
+                    <form action="/user/quiz" method="GET">
+                        <div class="quiz_button container">
+                        <button type="submit">Take Quiz</button>
+                        </div>
+                    </form>
+                
+                    <form action="/users/search" method="GET">
+                        <div class="submit_landing continer">
+                            <button type="submit">Book Appointment</button>
+                        </div>
+                    </form>
+
+                    <form action="/user/activities" method="GET">
+                        <div class="submit_landing continer">
+                            <button type="submit">Activities</button>
+                        </div>
+                    </form>
+                </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col d-flex justify-content-center userLanding_image">
+            <div class="card " style="width: 350px; height: fit-content;">
+                <img class="card-img-top" src="/images/landing_img1.jpg" alt="converse" srcset="">
+                
+                <div class="card-body">
+                    <h2>Converse more</h2>
+                    <p>“What mental health needs is more sunlight, more candor, and more unashamed conversation.” – Glenn Close</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col d-flex justify-content-center userLanding_image">
+            <div class="card " style="width: 350px; height: fit-content;">
+                <img class="card-img-top" src="/images/landing_img2.jpg" alt="selfLove" srcset="">
+                
+                <div class="card-body">
+                    <h2>Self Love is Key To Life</h2>
+                    <p>“You, yourself, as much as anybody in the entire universe, deserve your love and affection.” — Buddha</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col d-flex justify-content-center userLanding_image">
+            <div class=" card " style="width: 350px; height: fit-content;">
+                <img class="card-img-top" src="/images/landing_img3.jpg" alt="smile" srcset="">
+                
+                <div class=" card-body">
+                    <h2>Smile and move on..</h2>
+                    <p>“You can’t control everything. Sometimes you just need to relax and have faith 
+                    that things will work out. Let go a little and just let life happen.” — Kody Keplinger</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<%- include('partials/footer') -%>
