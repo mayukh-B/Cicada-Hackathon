@@ -1,10 +1,10 @@
 <%- include('partials/header') -%>
 
-<form action="/user/quiz" method="POST">
-    <button type="submit">Take Quiz</button>
-</form>
-<a href="/user/activities">Activities</a>
-<button type="submit">Book Appointment</button>
-
+    <a href="/user/profile/<%= id %>">Profile</a>
+    <form action="/user/quiz" method="POST">
+        <button type="submit">Take Quiz</button>
+    </form>
+    <a href="/user/activities">Activities</a>
+    <a href="/users/search">Book Appointment</a>
 
 <%- include('partials/footer') -%>

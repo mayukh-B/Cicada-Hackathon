@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <div class="details">
+        <p><%= foundDoctor.name %></p>
+        <p><%= foundDoctor.degree %></p>
+      </div>
+      <div class="reviews">
+        <h1>Reviews</h1>
+        <% foundDoctor.reviews.forEach(review => { %>
+        <div>
+          <div><%= review.patientName %></div>
+          <div><%= review.review %></div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <form action="/user/bookAppointment" method="POST">
+      <input value="<%= foundDoctor._id%>" name="docId" style="display: none" />
+      <button type="submit">Schedule An Appointment</button>
+    </form>
+  </body>
+</html>

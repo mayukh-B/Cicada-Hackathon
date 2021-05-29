@@ -1,43 +1,45 @@
-const input = document.getElementById("input");
-const btn = document.getElementById("btn");
-const results = document.getElementById("results");
+const input = document.getElementById('input')
+const btn = document.getElementById('btn')
+const results = document.getElementById('results')
 
-input.addEventListener("input", () => {
-  getDebouncedData();
-});
+input.addEventListener('input', () => {
+  getDebouncedData()
+})
 
 async function getDoctorData(searchText) {
-  console.log(searchText);
-  const res = await fetch("http://localhost:5000/api/doctors");
-  const data = await res.json();
+  console.log(searchText)
+  const res = await fetch('http://localhost:5000/api/doctors')
+  const data = await res.json()
   let matches = data.filter((d) => {
-    const regex = new RegExp(`^${searchText.toString()}`, "gi");
-    return d.name.match(regex);
-  });
-  console.log(matches);
-  if(searchText.length == 0){
-    matches = [];
-}
+    const regex = new RegExp(`^${searchText.toString()}`, 'gi')
+    return d.name.match(regex)
+  })
+  console.log(matches)
   // Results.classList.add('displayNone');
-  outputHtmlProject(matches);
+  if (searchText.length == 0) {
+    matches = []
+  }
+  outputHtmlProject(matches)
 }
 
 const applyDebounce = function (fn, d) {
-  let timer;
+  let timer
   return function () {
-    clearInterval(timer);
+    clearInterval(timer)
     timer = setTimeout(() => {
-      getDoctorData(input.value);
-    }, d);
-  };
-};
+      getDoctorData(input.value)
+    }, d)
+  }
+}
 
-const getDebouncedData = applyDebounce(getDoctorData, 300);
+const getDebouncedData = applyDebounce(getDoctorData, 300)
 
-function outputHtmlProject(matches){
-    if(matches.length > 0){
-        const html = matches.map(match => (
-            `<div class="projectCard">
+function outputHtmlProject(matches) {
+  if (matches.length > 0) {
+    const html = matches
+      .map(
+        (match) =>
+          `<div class="projectCard">
                 <div class="projectDetails">
                     <p><b>${match.name}</b></p>
                     <p><b>${match.degree}</b></p>
@@ -48,11 +50,12 @@ function outputHtmlProject(matches){
                 <div class="button">
                     <a href="/users/doctors/${match._id}">Book</a>
                 </div>
-            </div>`
-        )).join('');
-        results.innerHTML = html;
-    }else{
-        const html = '';
-        results.innerHTML = html;
-    }
+            </div>`,
+      )
+      .join('')
+    results.innerHTML = html
+  } else {
+    const html = ''
+    results.innerHTML = html
+  }
 }
