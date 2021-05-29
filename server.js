@@ -64,23 +64,15 @@ const docSchema = new mongoose.Schema({
   gender: String,
   degree: String,
   experience: String,
+  reviews: [
+    {
+      patientName: String,
+      review: String,
+    },
+  ],
 
-  pendingAppointment: [
-    {
-      patientName: String,
-      timeSlot: String,
-      description: String,
-      email: String,
-    },
-  ],
-  bookedAppointment: [
-    {
-      patientName: String,
-      timeSlot: String,
-      description: String,
-      email: String,
-    },
-  ],
+  pendingAppointment: [],
+  bookedAppointment: [],
 })
 
 docSchema.plugin(passportLocalMongoose)
@@ -303,26 +295,25 @@ app.post('/user/bookAppointment', (req, res) => {
   res.render('bookAppointment', { docId })
 })
 app.post('/user/AppointmentForm', (req, res) => {
-  let name = req.body.name
-  let email = req.body.email
-  let phNum = req.body.phNum
-  let slotTime = req.body.slotTime
-  let description = req.body.descr
-
-  res.render('confirmAppointment', {
-    name,
-    email,
-    phNum,
-    slotTime,
-    description,
+  const obj = {
+    patientName: req.body.name,
+    email: req.body.email,
+    phNum: req.body.phNum,
+    date: req.body.date,
+    slotTime: req.body.slotTime,
+    description: req.body.descr,
+  }
+  let docId = req.body.docId
+  Doc.find({ _id: docId }, (err, foundDoctor) => {
+    if (err) {
+      console.log(err)
+    } else {
+      foundDoctor[0].pendingAppointment.push(obj)
+      foundDoctor[0].save()
+    }
   })
+  res.send('Succefully booked')
 })
-
-app.get('/user/confirmAppointment', (req, res) => {
-  res.render('confirmAppointment')
-})
-
-// app.post('/confirmedPost', (req, res) => {})
 
 //***********************************************************************************
 //                            VIDEO CHAT ROUTE
@@ -352,13 +343,3 @@ var port = process.env.PORT || 5000
 server.listen(port, function () {
   console.log('Server has started on PORT : ' + port)
 })
-
-// app.get("/user/:id",(req,res) => {
-//   // if(req.isAuthenticated()){
-//     const reqUser = req.params.id;
-//     res.render("userProfile")
-//   // }else{
-//   //   res.redirect("/userLogin");
-//   // }
-
-// })

@@ -13,7 +13,9 @@
             <input type="text" placeholder="Enter your name" name="name" required><br><br>
             <input type="email" placeholder="Enter Email" name="email" required><br><br>
             <input type="number" placeholder="PhoneNumber" name="phNum" required><br><br>
+            <label>Enter Date</label><input type="date" name="date" required><br><br>
             <label>Enter Desired time: </label> <input type="time"  name="slotTime" min="09:00" max="18:00" required><br><br>
+            <input value="<%=docId%>" name="docId" style="display: none;">
             <textarea name="descr" placeholder="Descirbe your problem" required></textarea><br><br>
             <button type="submit">Submit</button>
         </form>
