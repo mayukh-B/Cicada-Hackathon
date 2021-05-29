@@ -377,10 +377,12 @@ app.post('/user/acceptAppointment', (req, res) => {
         },
       })
 
+      const roomLink = `https://still-taiga-90718.herokuapp.com/9fc43e6f-b971-4822-80ce-e0d2966d8ab7${uuidV4()}`;
       var mailOptions = {
         from: process.env.EMAIL,
         subject: 'Appointment Scheduled',
-        text: `Your appointment has been scheduled successfully.`,
+        text: `Your appointment has been scheduled successfully.
+               Your Video Call room id is - ${roomLink}`,
         to: patientEmail,
       }
       transporter.sendMail(mailOptions, function (error, info) {
@@ -402,7 +404,8 @@ app.post('/user/acceptAppointment', (req, res) => {
       var mailOptions = {
         from: process.env.EMAIL,
         subject: 'Appointment Scheduled',
-        text: `Your appointment has been scheduled successfully.`,
+        text: `Your appointment has been scheduled successfully.
+              Your Video Call room id is - ${roomLink}`,
         to: docEmail,
       }
       transporter.sendMail(mailOptions, function (error, info) {

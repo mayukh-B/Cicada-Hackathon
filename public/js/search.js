@@ -8,7 +8,7 @@ input.addEventListener('input', () => {
 
 async function getDoctorData(searchText) {
   console.log(searchText)
-  const res = await fetch('http://localhost:5000/api/doctors')
+  const res = await fetch('https://still-taiga-90718.herokuapp.com/api/doctors')
   const data = await res.json()
   let matches = data.filter((d) => {
     const regex = new RegExp(`^${searchText.toString()}`, 'gi')
