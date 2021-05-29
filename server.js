@@ -65,6 +65,8 @@ const docSchema = new mongoose.Schema({
   address:String,
   gender: String,
   degree:String,
+  experience:String,
+  
   pendingAppointment: [
     {
       patientName: String,
@@ -275,7 +277,7 @@ app.get("/users/doctors/:id",(req,res)=>{
     if(err){
       console.log(err);
     }else{
-      console.log(foundDoctor);
+      res.render('docCard',{foundDoctor: foundDoctor[0]});
     }
   })
 })
