@@ -5,6 +5,7 @@ var message = document.getElementById("message");
 var output = document.getElementById("output");
 var handle = document.getElementById("handle");
 const myPeer = new Peer(undefined, {})
+let ownVideo;
 const myVideo = document.createElement('video')
 myVideo.muted = true
 const peers = {}
@@ -12,6 +13,7 @@ navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
 }).then(stream => {
+  ownVideo = stream;
   addVideoStream(myVideo, stream)
 
   myPeer.on('call', call => {
@@ -71,3 +73,41 @@ socket.on("chat-msg", function (data) {
   output.innerHTML +=
     "<p><strong>" + data.handle + ":</strong>" + data.message + "</p>";
 });
+
+
+const btn = document.getElementById("mute/unmute");
+
+const muteUnmute = () =>{
+    if(ownVideo.getAudioTracks()[0].enabled){
+      ownVideo.getAudioTracks()[0].enabled = false;
+      btn.innerHTML="Unmute";
+    }
+    else{
+      ownVideo.getAudioTracks()[0].enabled = true;
+      btn.innerHTML="Mute"
+    }
+}
+
+btn.addEventListener('click', muteUnmute);
+
+
+const pause = document.getElementById("pause");
+
+const pauseVideo = () => {
+  if(ownVideo.getVideoTracks()[0].enabled){
+      ownVideo.getVideoTracks()[0].enabled = false;
+      pause.innerHTML="Resume";
+  }
+  else {
+      ownVideo.getVideoTracks()[0].enabled = true;
+      pause.innerHTML = "Pause";
+  }
+}
+
+
+pause.addEventListener('click', pauseVideo)
+
+
+
+
+pause.addEventListener('click', pauseVideo)
