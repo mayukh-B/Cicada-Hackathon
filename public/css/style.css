@@ -1,6 +1,31 @@
 *{
     font-family: 'Poppins', sans-serif;
 }
+.box{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(255, 245, 179);
+    border-radius: 5px;
+}
+.scoreCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .scoreCard button{
+    margin-right: auto;
+} */
 .landing{
     z-index: 0;
 }

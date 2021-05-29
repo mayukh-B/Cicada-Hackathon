@@ -366,14 +366,17 @@ server.listen(port, function () {
 //***********************************************************************************
 //                            QUIZ ROUTE
 //*********************************************************************************** 
-
+// app.get("/mobQuiz",(req,res)=>{
+//   res.render()
+// })
 app.get("/userLanding",(req,res)=>{
     res.render('userLanding')
 })
 
-app.get("/user/quiz",(req,res)=>{
-    res.render('quiz')
+app.get("/user/mobQuiz",(req,res)=>{
+    res.render('mobQuiz')
 })
+
 
 app.post("/user/quiz",(req,res)=>{
     res.redirect('/user/quiz')
