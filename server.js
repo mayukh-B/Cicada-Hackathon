@@ -251,7 +251,12 @@ app.get('/api/doctors', (req, res) => {
     }
   })
 })
-
+/*=======================================================================
+                            ABOUT
+========================================================================*/
+app.get('/users/about', (req, res) => {
+  res.render('about')
+})
 /*=======================================================================
                             SEARCH
 ========================================================================*/
@@ -347,7 +352,6 @@ app.post('/user/AppointmentForm', (req, res) => {
 })
 
 //***********************************************************************************
-
 //                      DOCTOR ACCEPTING AND REJECTING APPOINTMENTS ROUTE
 //***********************************************************************************
 
@@ -358,7 +362,7 @@ app.post('/user/acceptAppointment', (req, res) => {
     phNum: req.body.phNum,
     date: req.body.date,
     slotTime: req.body.slotTime,
-    description: req.body.descr,
+    description: req.body.description,
     id: req.body.id,
   }
   let id = req.body.id
@@ -521,7 +525,11 @@ app.get("/userLanding",(req,res)=>{
 })
 
 app.get("/user/mobQuiz",(req,res)=>{
-    res.render('mobQuiz')
+  if(req.isAuthenticated()){
+    res.render('mobQuiz',{user: req.user})
+  }else{
+    res.redirect("/userLogin");
+  }
 })
 
 

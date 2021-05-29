@@ -1,6 +1,13 @@
 *{
     font-family: 'Poppins', sans-serif;
 }
+.About{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 200px;
+}
 .box{
     width: 100vw;
     height: 100vh;
@@ -8,6 +15,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .card{
     padding: 20px;
     display: flex;
@@ -16,6 +24,116 @@
     background-color: rgb(255, 245, 179);
     border-radius: 5px;
 }
+.doctorCard{
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: beige;
+    border-radius: 5px;
+}
+
+.doctorDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.searchArea{
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.inputActions input{
+    width: 500px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: rgb(235, 235, 235);
+    border: none;
+}
+
+
+.inputActions button{
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #FFC93C;
+    color: white;
+    width: 150px;
+}
+.inputActions a{
+    text-decoration: none;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #FFC93C;
+    color: white;
+    width: 150px;
+}
+.displayHide{
+    display: none;
+}
+.confirm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.confirm button{
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #FFC93C;
+    color: white;
+    width: 200px;
+}
+
+.confirm a{
+    text-decoration: none;
+    color: white;
+}
+
+.confirm form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@media only screen and (max-width: 400px) {
+    .doctorCard{
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: beige;
+        border-radius: 5px;
+    }
+    .inputActions{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .inputActions input{
+        width: 200px;
+        margin-right: 15px;
+    } 
+    .inputActions button{
+        display: none;
+    }
+    .displayHide{
+        display: block;
+    }
+    .fas{
+        color: #FFC93C;
+    }
+}
+/* .doctorDetails p{
+    margin-bottom: ;
+} */
 .scoreCard{
     display: flex;
     flex-direction: column;
@@ -26,6 +144,22 @@
 /* .scoreCard button{
     margin-right: auto;
 } */
+.upcomingAppointments{
+    display: flex;
+    flex-direction: column;
+}
+.Appointments{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.appointmentHandling{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .landing{
     z-index: 0;
 }
@@ -72,6 +206,14 @@
     align-items: center;
 }
 
+.navbarLogin{
+    margin: 0;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .navbar-responsive-content{
     position: fixed;
     flex-direction: column;
@@ -114,6 +256,10 @@ color: #fff;
     color: #FFC93C;
     font-weight: bolder;
 }
+.logo a{
+    text-decoration: none;
+    color: #FFC93C;
+}
 .navs{
     width: 30%;
     display: flex;
@@ -154,6 +300,9 @@ color: #fff;
 @media only screen and (max-width: 400px) {
     .navbar {
       display: none;
+    }
+    .navbarLogin{
+        display: none;
     }
     .brain img{
         width:300px
@@ -226,7 +375,8 @@ color: #fff;
     height:400px;
     margin: 10px;
     border-radius: 5px;
-    border: 2px solid black;
+    background-color: beige;
+    
 }
 /* ._container{
     padding:50px;
@@ -287,4 +437,52 @@ color: #fff;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+}
+
+.vision{
+    display: flex;
+    padding: 50px;
+}
+.text{
+    display: flex;
+    flex-direction:column ;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+.aboutImages{
+    width: 50%;
+}
+
+.topImages{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#img1{
+    width: 45%;
+}
+#img2{
+    width: 45%;
+}
+
+.bottomImage{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottomImage img{
+    width: 93%;
+    height: 100%;
+}
+.boldBigAbout{
+    margin-top: 0;
+    color: #FFC93C;
+    font-size: 32px;
 }

@@ -4,11 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
-    <input type="text" placeholder="search Doctors" id="input">
-    <button type="submit" id="btn">Search Doctor</button>
+    <%- include('partials/navbar-Login') %> 
+    <div class="searchArea">
+        <div class="inputActions">
+            <input type="text" placeholder="search Doctors" id="input">
+            <button type="submit" id="btn">Search Doctor</button>
+            <i class="fas fa-search fa-2x displayHide"></i>
+        </div>
+    </div>
     <div>
         <div id="results"></div>
     </div>
