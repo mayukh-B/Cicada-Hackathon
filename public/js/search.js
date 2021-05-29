@@ -15,6 +15,9 @@ async function getDoctorData(searchText) {
     return d.name.match(regex);
   });
   console.log(matches);
+  if(searchText.length == 0){
+    matches = [];
+}
   // Results.classList.add('displayNone');
   outputHtmlProject(matches);
 }

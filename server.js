@@ -62,12 +62,21 @@ const docSchema = new mongoose.Schema({
   name: String,
   email: String,
   userPhNum: Number,
-  address:String,
+  address: String,
   gender: String,
-  degree:String,
+  degree: String,
+  experience: String,
+  reviews: [
+    {
+      patientName: String,
+      review: String,
+    },
+  ],
+
   pendingAppointment: [
     {
       patientName: String,
+      date: String,
       timeSlot: String,
       description: String,
       email: String,
@@ -76,13 +85,13 @@ const docSchema = new mongoose.Schema({
   bookedAppointment: [
     {
       patientName: String,
+      date: String,
       timeSlot: String,
       description: String,
       email: String,
     },
   ],
-});
-
+})
   docSchema.plugin(passportLocalMongoose);
   const Doc = mongoose.model("Doc",docSchema);
   passport.use('docLocal', new LocalStrategy(Doc.authenticate()));
@@ -156,7 +165,25 @@ app.post('/userRegister', function (req, res) {
         userPhNum: req.body.phnum,
         address:req.body.address,
         dob:req.body.dob,
+        degree:req.body.degree,
+        experience:req.body.experience,
         gender: req.body.gender,
+        pendingAppointment:{
+            patientName:" ",
+            date: " ",
+            timeSlot: " ",
+            description: " ",
+            email: " ",
+        },
+        bookedAppointment:{
+          patientName: " ",
+          date: " ",
+          timeSlot: " ",
+          description: " ",
+          email: " ",
+        },
+          
+
       }, req.body.password,
       function(err,user){
         if(err){
@@ -245,6 +272,19 @@ Doc.register({
   }
 )
 });
+
+/*=======================================================================
+                            DOCTOR LANDING
+========================================================================*/
+app.get('/docLanding', function (req, res) { 
+  if(req.isAuthenticated()){
+    res.render('docLanding');
+    console.log(req.user);
+  }
+  else{
+    res.redirect("/docLogin");
+  }
+});
 /*=======================================================================
                             DOCTOR FIND
 ========================================================================*/
@@ -279,18 +319,7 @@ app.get("/users/doctors/:id",(req,res)=>{
     }
   })
 })
-/*=======================================================================
-                            DOCTOR LANDING
-========================================================================*/
-app.get('/docLanding', function (req, res) { 
-  if(req.isAuthenticated()){
-    res.render('docLanding');
-    console.log(req.user);
-  }
-  else{
-    res.redirect("/docLogin");
-  }
-});
+
 
 //***********************************************************************************
 //                            VIDEO CHAT ROUTE
@@ -316,10 +345,6 @@ io.on('connection', socket => {
   })
 })
 
-var port = process.env.PORT || 5000;
-server.listen(port, function () {
-    console.log('Server has started on PORT : ' + port);
-});
 
 
 //***********************************************************************************
@@ -352,7 +377,7 @@ app.post("/user/result",(req,res)=>{
 //                            ACTIVITIES
 //*********************************************************************************** 
 app.get("/user/activities",(req,res)=>{
-    res.render('quiz')
+  res.render('activities')
 })
 // app.get("/user/:id",(req,res) => {
 //   // if(req.isAuthenticated()){
@@ -364,3 +389,34 @@ app.get("/user/activities",(req,res)=>{
 
 // })
 
+//***********************************************************************************
+//                            ACTIVITIES DETAILS
+//*********************************************************************************** 
+
+app.get("/user/activities/walking",(req,res)=>{
+  res.render('walking');
+});
+
+app.get("/user/activities/running",(req,res)=>{
+  res.render('running');
+});
+
+app.get("/user/activities/cycling",(req,res)=>{
+  res.render('cycling');
+});
+app.get("/user/activities/breathing",(req,res)=>{
+  res.render('breathing')
+})
+
+app.get("/user/activities/meditation",(req,res)=>{
+  res.render('meditation')
+})
+
+//***********************************************************************************
+//                            APP LISTING
+//*********************************************************************************** 
+
+var port = process.env.PORT || 5000;
+server.listen(port, function () {
+    console.log('Server has started on PORT : ' + port);
+});
