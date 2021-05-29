@@ -1,8 +1,5 @@
 
-<form action="/user/quiz" method="POST">
-    <button type="submit">Take Quiz</button>
-</form>
-<button type="submit">Book Appointment</button>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +12,10 @@
 <body>
     <h1>WELCOME USER</h1>
     <a href="/user/profile/<%= id %>">Profile</a>
+    <form action="/user/quiz" method="POST">
+        <button type="submit">Take Quiz</button>
+    </form>
+    <a href="/users/search">Book Appointment</a>
 </body>
 </html>
 
