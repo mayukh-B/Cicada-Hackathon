@@ -64,6 +64,7 @@ const docSchema = new mongoose.Schema({
   userPhNum: Number,
   address:String,
   gender: String,
+  degree:String,
   pendingAppointment: [
     {
       patientName: String,
@@ -244,7 +245,40 @@ Doc.register({
   }
 )
 });
+/*=======================================================================
+                            DOCTOR FIND
+========================================================================*/
+app.get("/api/doctors",(req,res)=>{
+  Doc.find({},(err,foundUsers)=>{
+      if(err){
+          console.log(err);
+      }else{
+          res.json(foundUsers);
+      }
+  })
+})
+/*=======================================================================
+                            SEARCH
+========================================================================*/
 
+app.get("/users/search",(req,res)=>{
+  res.render("searchPage")
+})
+
+
+/*=======================================================================
+                            USER ROUTE DOCTOR PROFILE
+========================================================================*/
+app.get("/users/doctors/:id",(req,res)=>{
+  const requestedDoctorId = req.params.id;
+  Doc.find({_id:requestedDoctorId},(err,foundDoctor)=>{
+    if(err){
+      console.log(err);
+    }else{
+      console.log(foundDoctor);
+    }
+  })
+})
 /*=======================================================================
                             DOCTOR LANDING
 ========================================================================*/
@@ -287,6 +321,7 @@ server.listen(port, function () {
     console.log('Server has started on PORT : ' + port);
 });
 
+
 //***********************************************************************************
 //                            QUIZ ROUTE
 //*********************************************************************************** 
@@ -319,3 +354,13 @@ app.post("/user/result",(req,res)=>{
 app.get("/user/activities",(req,res)=>{
     res.render('quiz')
 })
+// app.get("/user/:id",(req,res) => {
+//   // if(req.isAuthenticated()){
+//     const reqUser = req.params.id;
+//     res.render("userProfile")
+//   // }else{
+//   //   res.redirect("/userLogin");
+//   // }
+
+// })
+
