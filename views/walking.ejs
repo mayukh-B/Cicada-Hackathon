@@ -1,3 +1,4 @@
+<%- include('partials/header') -%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +8,32 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>A good walk can do wonders for your mental wellbeing.</h1>
-    <h4>How does walking improves mental health?</h4>
-    <p>Being active has a whole range of benefits when it comes to mental wellbeing.
-        It improves self-perception and self-esteem, mood and sleep quality,
-        and it reduces stress, anxiety and fatigue. Physically active people have up to 
-        a 30% reduced risk of becoming depressed, and staying active helps those who are depressed recover.
-        In older people, staying active can improve cognitive function, memory, 
-        attention and processing speed, and reduce the risk of cognitive decline and dementia.  </p>
+<div class="container whole-walking">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <div class="walking-text">
+                <h1 class="walking-head">A good walk can do wonders for your mental wellbeing.</h1>
+                <h4 class="walking-sub_head">How does walking help mental health?</h4>
+                <p class="walking-body">Being active has a whole range of benefits when it comes to mental wellbeing.
+                It improves self-perception and self-esteem, mood and sleep quality,
+                and it reduces stress, anxiety and fatigue. Physically active people have up to 
+                a 30% reduced risk of becoming depressed, and staying active helps those who are depressed recover.
+                In older people, staying active can improve cognitive function, memory, 
+                attention and processing speed, and reduce the risk of cognitive decline and dementia. 
+                The physical improvements you gain by walking can help to improve your mental health too. 
+                If you feel fitter and feel in control of your weight, your body image and confidence can increase 
+                - so it's not just the physical benefits that you'll notice when you start walking.
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <img class="card-img-top" src="/images/walking.jpg" alt="walking" srcset="">
+        </div>
+
+    </div>
+</div>
 </body>
 </html>
+
+
+<%- include('partials/footer') -%>

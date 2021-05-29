@@ -1,79 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<%- include('partials/header') -%>
+
+<div class=" user-reg-form mx-auto container">
+    <h4 class="user-reg-heading">Register as a Practitioner</h4>
     <form action="/docRegister" method="POST">
-        <label>Username</label>
+
+        <div class="mb-3">
+        <label class="form-label">Username</label>
         <input 
+            class="form-control"
             type="text" 
             name="username" 
             placeholder="Enter Username"
         />
+        </div>
 
-        <label>Password</label>
+
+        <div class="mb-3">
+        <label class="form-label">Password</label>
         <input 
-            type="text" 
+            class="form-control"
+            type="password" 
             name="password" 
             placeholder="Set Password"
         />
+        </div>
 
-        <label>Full Name</label>
+        <div class="mb-3">  
+        <label class="form-label">Full Name</label>
         <input 
+            class="form-control"
             type="text" 
             name="name" 
             placeholder="Enter Your Full Name"
         />
+        </div>
 
-        <label>Mobile number</label>
+        <div class="mb-3">
+        <label class="form-label">Mobile number</label>
         <input 
+            class="form-control"
             type="number" 
             pattern="[0-9]{10}" 
             name="phnum" 
             placeholder="Enter Mobile Number"
         />
+        </div>
 
-        <label>Address</label>
+        <div class="mb-3">
+        <label class="form-label">Address</label>
         <input 
+            class="form-control"
             type="text" 
             name="address" 
             placeholder="Enter Your Address"
         />
-        <label>Experience</label>
-        <textarea
-            type="text" 
-            name="address" 
-            placeholder="Enter Your Address">
-        </textarea> 
-
-        <label>Email ID</label>
+        </div>
+      
+        <div class="mb-3">
+        <label class="form-label">Email ID</label>
         <input 
+            class="form-control"
             type="email" 
             name="email" 
             placeholder="Enter Email ID"
         />
-        <label>Qualification</label>
+        </div>
+
+        <div class="mb-3">
+        <label class="form-label">Qualification</label>
         <input 
+            class="form-control"
             type="text" 
             name="degree" 
             placeholder="Enter your highest qualification"
         />
-        <label>Experience</label>
-        <input 
+        </div>
+
+        <div class="mb-3">
+        <label class="form-label">Experience</label>
+        <input
+            class="form-control" 
             type="text" 
             name="experience" 
             placeholder="Enter your experience"
         />
-        <label>Gender</label> 
-        <input type="radio" id="male" name="gender" value="male">
-        <label for="male">Male</label><br>
-        <input type="radio" id="female" name="gender" value="female">
-        <label for="female">Female</label><br>
-        <button type="submit">Submit</button>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Gender</label> 
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="male" name="gender" value="male">
+                <label  class="form-check-label" for="male">Male</label><br>
+                <input class="form-check-input" type="radio" id="female" name="gender" value="female">
+                <label  class="form-check-label" for="female">Female</label><br>
+            </div>
+        </div>  
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
-</body>
-</html>
+</div>
+<%- include('partials/footer') -%>

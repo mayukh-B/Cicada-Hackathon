@@ -1,3 +1,4 @@
+
 const questionBank=[
     {
         question:"1)I feel very low of myself",
@@ -171,32 +172,33 @@ button.addEventListener('click',()=>{
 
         result.innerHTML=
         `<h3>You scored ${score}/40 </h3>`;
+
         if(score>=1 && score<=5){
             remark.innerHTML=
-            `<h3>Extreme depression</h3>`;
+            'Extreme depression';
         
         }
         if(score>=6 && score<=10){
             remark.innerHTML=
-        `<h3>Mild mood disturbance</h3>`;
+        'Mild mood disturbance';
         }
         if(score>=11 && score<=15){
             remark.innerHTML=
-            `<h3>Severe Depression</h3>`;
+            'Severe Depression';
         
         }
         if(score>=16 && score<=20){
             remark.innerHTML=
-        `<h3>Moderate depression</h3>`;
+        'Moderate depression';
         }
         if(score>=21 && score<=30){
             remark.innerHTML=
-        `<h3>Borderline clinical depression</h3>`;
+        'Borderline clinical depression';
         }
         if(score>=30){
             remark.innerHTML=
-        `<h3>These ups and downs are considered normal</h3>`;
+        'These ups and downs are considered normal';
         }
-        
+        showScore.classList.remove('scoreArea');
     }
 })

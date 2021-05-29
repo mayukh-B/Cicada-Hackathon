@@ -11,7 +11,8 @@ const LocalStrategy = require('passport-local').Strategy
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
-const { start } = require('repl')
+const {start} = require('repl')
+var nodemailer = require("nodemailer");
 
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -107,15 +108,20 @@ passport.deserializeUser(function (user, done) {
   if (user != null) done(null, user)
 })
 
+
+
+/*=======================================================================
+                            HOME ROUTE
+========================================================================*/
 app.get('/', function (req, res) {
   res.render('home')
 })
 
 /*=======================================================================
-                            HOME ROUTE
+                            LOGIN ROUTE
 ========================================================================*/
-app.get('/docLogin', function (req, res) {
-  res.render('docLogin')
+app.get('/login', function (req, res) {
+  res.render('login')
 })
 
 /*=======================================================================
@@ -174,6 +180,32 @@ app.post('/userRegister', function (req, res) {
         
           passport.authenticate('userLocal')(req, res, function () {
           res.redirect('/userLanding');
+
+          var transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+        });
+
+        var mailOptions = {
+            from: process.env.EMAIL,
+            to: req.body.email,
+            subject: "Succesfully Registered to Mind's Matter",
+            text: `Thanks for registering in Mind's Matter.
+                  We care for your mental health.
+                  Explore more of the activities in our website to keep your mind healthy.
+                  Also consult specialized psychologist for help.`            
+        };
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Email sent:" + info.response);
+            }
+        });
+
           });
         }
       })
@@ -185,7 +217,6 @@ app.post('/userRegister', function (req, res) {
 app.get('/userLanding', function (req, res) {
   if (req.isAuthenticated()) {
     res.render('userLanding',{id: req.user._id})
-    console.log(req.user)
   } else {
     res.redirect('/userLogin')
   }

@@ -1,45 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Document</title>
-</head>
-<body>
-<form action="/user/result" method="POST">
-    
-    <h3 id="ques">Question</h3>
-    <ul>
-        <input type="radio" name="ans" id="ans1" class="answer" >
-        <label for="ans1" id="option1" >Answer</label>
-    </ul>
-    <ul>
-        <input type="radio" name="ans" id="ans2" class="answer" >
-        <label for="ans2" id="option2" >Answer</label>
-    </ul>
-    <ul>
-        <input type="radio" name="ans" id="ans3" class="answer">
-        <label for="ans3" id="option3">Answer</label>
-    </ul>
-    <ul>
-        <input type="radio" name="ans" id="ans4" class="answer" >
-        <label for="ans4" id="option4" >Answer</label>
-    </ul>
-    
-    
-    <div id="btn" >Submit</div>
-    
-    <!-- <form action="/result" method="POST">
-        <a href="/SeeResult">See Result</a>
-    </form> -->
-    <input type="number" id="score" name="score1" style="display:none;">
-    <h3 id="result"></h3>
-    <h3 id="remark"></h3>
-    <button type="submit" id="end" class="displayNone">End Test</button>
-</form>
+<%- include('partials/header') -%>
+
+    <form action="/user/result" method="POST">
+        <div class="main-div ">
+            <div class="inner-div ">
+                <h2 class="question" id="ques">Question</h3>
+                <ul>
+                <li>
+                    <input type="radio" name="ans" id="ans1" class="answer" >
+                    <label for="ans1" id="option1" >Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="ans" id="ans2" class="answer" >
+                    <label for="ans2" id="option2" >Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="ans" id="ans3" class="answer">
+                    <label for="ans3" id="option3">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="ans" id="ans4" class="answer" >
+                    <label for="ans4" id="option4" >Answer</label>
+                </li>
+                </ul>
+                
+                <div id="btn" class="btn">Submit</div>
+                <input type="number" id="score" name="score1" style="display:none;">
+                <div id="showScore" class="scoreArea">
+                    <h3 id="result"></h3>
+                    <h3 id="remark"></h3>
+                    <button type="submit" id="end" class="displayNone button">End Test</button>
+                </div>
+                
+            </div>
+        </div>
+
+    </form>
 
     <script src="/js/script.js"></script>
-</body>
-</html>
+
+<%- include('partials/footer') -%>

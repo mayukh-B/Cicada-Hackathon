@@ -1,19 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-<script src="/js/breathingtimer.js"></script>
-</head>
-<body>
-<div >
-<p><span id="seconds">00</span>: <span id="tens">00</span></p>
-<button id="button-start">Start</button>
-<button id="button-stop">Stop</button>
-<button id="button-reset">Reset</button>
-
-</div>
-</body>
-</html> -->
-
+<%- include('partials/header') -%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,21 +7,53 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
     <script type="text/javascript" src="/js/timer.js"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
 
-    <div class="container">
-
-        <div id="display">
-            00:00:00
+<div class="container whole-meditation">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <div class="meditation-text">
+                <h1 class="meditation-head">Meditation provides a way of learning how to let go</h1>
+                
+                <p class="meditation-body">
+                Meditation is the practice of thinking deeply or focusing one’s mind for a period of time. While there are many forms of meditation, the ultimate goal is a feeling 
+                of relaxation and inner peace, which can improve mental health. And there’s a growing body of research to support that.
+                The mental health benefits of meditation include better focus and concentration, 
+                improved self-awareness and self-esteem, lower levels of stress and anxiety, and fostering kindness.
+                </p>
+                <p>
+                <h2>How To do Meditation ?</h2>
+                Start with a few deep breaths to calm the body.
+                Take a couple moments to wind down and clear your mind
+                Try not to fidget or move too much during meditation.Just breathe.Slowly reintroduce movement after meditating
+                </p>
+            </div>
         </div>
-
-        <div class="buttons">
-            <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
+        <div class="col-lg-6 col-sm-12">
+            <img class="card-img-top" src="/images/meditation.jpg" alt="meditation" srcset="">
         </div>
 
     </div>
+</div>
+
+<div class="row">
+  <div class="timer">
+    <h2 class="timerH1">Try to concentrate for atleast 2 minutes</h2>  
+    <div id="display">
+        00:00:00
+    </div>
+
+
+    <div class="btn-timer">
+        <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
+    </div>
+   </div> 
+</div>
+
+</div>
     
 </body>
 </html>
+<%- include('partials/footer') -%>
