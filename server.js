@@ -553,9 +553,9 @@ io.on('connection', (socket) => {
 // app.get("/mobQuiz",(req,res)=>{
 //   res.render()
 // })
-app.get("/userLanding",(req,res)=>{
-    res.render('userLanding')
-})
+// app.get("/userLanding",(req,res)=>{
+//     res.render('userLanding')
+// })
 
 app.get("/user/mobQuiz",(req,res)=>{
   if(req.isAuthenticated()){

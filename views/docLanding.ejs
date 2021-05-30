@@ -31,7 +31,8 @@
           <h3>Requested Date- <%=elem.date%></h3>
           <h3>Requested TimeSlot - <%=elem.slotTime%></h3>
           <h3>Problem<br> Description - <%=elem.description%></h3>
-          <form action="/user/acceptAppointment" method="POST">
+          <div style="display: flex; justify-content: space-evenly;">
+            <form action="/user/acceptAppointment" method="POST">
               <input value="<%=elem.patientName%>" name="name" style="display: none;">
               <input value="<%=elem.email%>" name="email" style="display: none;">
               <input value="<%=elem.date%>" name="date" style="display: none;">
@@ -40,7 +41,9 @@
               <input value="<%=elem.id%>" name="id" style="display: none;">
               <input value="<%=docId%>" name="docId" style="display: none;">
               <input value="<%=email%>" name="demail" style="display: none;">
-              <button type="submit">Accept</button>
+              <div class="inputActions" style="margin-right: 20px ;">
+                <button  type="submit">Accept</button>
+              </div>
           </form>
           <form action="/user/rejectAppointment" method="POST">
               <input value="<%=elem.patientName%>" name="name" style="display: none;">
@@ -50,8 +53,12 @@
               <input value="<%=elem.description%>" name="description" style="display: none;">
               <input value="<%=elem.id%>" name="id" style="display: none;">
               <input value="<%=docId%>" name="docId" style="display: none;">
-              <button type="submit">Reject</button>
-          </form>
+              <div class="inputActions">
+                <button  type="submit">Reject</button>
+              </div> 
+            </form>
+
+          </div>
           </div>
      <%  }) %>
       </div>
