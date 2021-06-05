@@ -1,5 +1,29 @@
 <%- include('partials/header') -%>
-
+<div class="blogNav">
+    <div class="blogNav_logo">
+        <a href="/userLanding">Mind's Matter</a>
+    </div>
+    <div class="blogNav_navLinks">
+        <a href="/user/profile/<%=id %>">Profile</a>
+        <a href="/users/blog">Blog</a>
+        <a href="/users/logout">Logout</a>
+    </div>
+</div>
+<div class="blogNav_responsive">
+    <div class="navResponsive">
+        <div class="blogNav_logo">
+            <a href="/userLanding">Mind's Matter</a>
+        </div>
+        <div id="hamburger" class="hamburger">
+            <i class="fas fa-2x fa-bars"></i>
+        </div>
+    </div>
+    <div class="blogNav_navLinks_responsive">
+        <a href="/user/profile/<%= id %>">Profile</a>
+        <a href="/users/blog">Blog</a>
+        <a href="/users/logout">Logout</a>
+    </div>
+</div>
 <div class="userLanding container">
     <div class="row">
         <div class="quiz_header container text-center">
@@ -18,7 +42,7 @@
                 <a class=" d-flex justify-content-left submit_landing" type="submit">Book Appointment</a>   -->
                 <div class="button_landing">
                     <form action="/user/quiz" method="GET">
-                        <div class="quiz_button container">
+                        <div class="quiz_button">
                         <button id="desktopButton" type="submit">Take Quiz</button>
                         </div>
                     </form>
@@ -44,7 +68,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 30px; margin-top: 60px;">
         <div class="col d-flex justify-content-center userLanding_image">
             <div class="card " style="width: 350px; height: fit-content;">
                 <img class="card-img-top" src="/images/landing_img1.jpg" alt="converse" srcset="">
@@ -57,7 +81,7 @@
         </div>
 
         <div class="col d-flex justify-content-center userLanding_image">
-            <div class="card " style="width: 350px; height: fit-content;">
+            <div class="card " style="width: 350px; height: fit-content; ">
                 <img class="card-img-top" src="/images/landing_img2.jpg" alt="selfLove" srcset="">
                 
                 <div class="card-body">
@@ -69,7 +93,7 @@
 
 
         <div class="col d-flex justify-content-center userLanding_image">
-            <div class=" card " style="width: 350px; height: fit-content;">
+            <div class=" card " style="width: 350px; height: fit-content; ">
                 <img class="card-img-top" src="/images/landing_img3.jpg" alt="smile" srcset="">
                 
                 <div class=" card-body">
@@ -82,5 +106,6 @@
 
     </div>
 </div>
+<script src="/js/newNav.js"></script>
 
 <%- include('partials/footer') -%>

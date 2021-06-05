@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/blogStyles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="blogNav">
+        <div class="blogNav_logo">
+            <a href="/userLanding">Mind's Matter</a>
+        </div>
+        <div class="blogNav_navLinks">
+            <a href="/user/profile/<%= user._id %>">Profile</a>
+            <a href="/users/blog">Blog</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="blogNav_responsive">
+        <div class="navResponsive">
+            <div class="blogNav_logo">
+                <a href="/userLanding">Mind's Matter</a>
+            </div>
+            <div id="hamburger" class="hamburger">
+                <i class="fas fa-2x fa-bars"></i>
+            </div>
+        </div>
+        <div class="blogNav_navLinks_responsive">
+            <a href="/user/profile/<%= user._id %>">Profile</a>
+            <a href="/users/blog">Blog</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="blog">
+        <form method="POST" action="/users/blog">
+            <div class="input_form">
+                <input type="text" name="user_id" style="display: none;" value=<%=user._id%>>
+                <input type="text" name="userName" style="display: none;" value=<%=user.username%>>
+                <label for="Title">Title</label>
+                <input type="text" placeholder="Title for Your Post" required name="title">
+                <label for="Sub Title">Sub Title</label>
+                <input type="text" placeholder="Subtitle" required name="subtitle">
+                <label for="Description">Description</label>
+                <Textarea placeholder="Describe your post" required name="description"></Textarea>
+                <button class="button" type="submit">Post</button>
+            </div>
+        </form>
+        <div class="posts">
+            <% foundPosts.forEach(post => { %>
+                <div class="post">
+                    <div class="post_user">
+                        <p><%= post.userName %> </p>
+                    </div>
+                    <div class="post_header">
+                        <div class="post_header_head">
+                            <p class="post_header_title"><%= post.title %> </p>
+                            <p class="post_header_subtitle"><%= post.subtitle %> </p>
+                        </div>
+                    </div>
+                    <div class="post_description">
+                        <p><%= post.description %> </p>
+                    </div>
+                </div>
+            <% }) %> 
+        </div>
+    </div>
+    <script src="/js/newNav.js"></script>
+</body>
+</html>

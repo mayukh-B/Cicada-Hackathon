@@ -82,6 +82,21 @@ const docSchema = new mongoose.Schema({
   passport.use('docLocal', new LocalStrategy(Doc.authenticate()));
 
 /*=======================================================================
+                            BLOGS SCHEMA
+========================================================================*/
+
+  const blogSchema = new mongoose.Schema({
+    user_id:String,
+    userName:String,
+    title:String,
+    subtitle:String,
+    description:String,
+  })
+  const Blog = mongoose.model('Blog', blogSchema)
+
+  
+
+/*=======================================================================
                             SERIALIZE AND DESERIALIZE
 ========================================================================*/
 
@@ -204,7 +219,41 @@ app.get('/userLanding', function (req, res) {
     res.redirect('/userLogin')
   }
 })
+// user_id:String,
+// userName:String,
+// title:String,
+// subtitle:String,
+// description:String,
+/*=======================================================================
+                            Blog
+========================================================================*/
+app.get("/users/blog", (req,res)=>{
+  if(req.isAuthenticated()){
+    Blog.find({},(err,foundPosts)=>{
+      if(err){
+        console.log(err);
+      }else{
+        foundPosts=foundPosts.reverse();
+        res.render("blog",{user:req.user,foundPosts:foundPosts});
+      }
+    })
+  }else{
+    res.redirect("/userLogin");
+  }
+});
 
+app.post("/users/blog",(req,res)=>{
+  const {user_id,userName,title,subtitle,description} = req.body;
+  const post = new Blog({
+    user_id,
+    userName,
+    title,
+    subtitle,
+    description,
+  });
+  post.save();
+  res.redirect("/users/blog")
+})
 /*=======================================================================
                             DOCTOR LOGIN
 ========================================================================*/
@@ -297,7 +346,11 @@ app.get('/users/about', (req, res) => {
 ========================================================================*/
 
 app.get('/users/search', (req, res) => {
-  res.render('searchPage')
+  if(req.isAuthenticated()){
+    res.render('searchPage',{user:req.user})
+  }else{
+    res.redirect('/userLogin')
+  }
 })
 /*=======================================================================
                             USER ROUTE DOCTOR PROFILE

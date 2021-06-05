@@ -437,7 +437,7 @@ color: #fff;
     margin-top: 150px;
     text-align: center;
     font: normal normal bold 56px/66px Noto Sans;
-    color: #3C3C3C;
+    color: #FFC93C;
     opacity: 1;
     }
     
@@ -458,6 +458,7 @@ color: #fff;
     letter-spacing: 0px;
     color: #FCFCFC;
     opacity: 1;
+    border: none;
     background-color:#FFC93C;
     padding:15px 32px;
     border-radius: 5px;
@@ -470,6 +471,7 @@ color: #fff;
     font-size: 20px;
     letter-spacing: 0px;
     color: #FCFCFC;
+    border: none;
     opacity: 1;
     background-color:#FFC93C;
     padding:15px 32px;
@@ -479,12 +481,14 @@ color: #fff;
     
     .button_landing{
         display:flex;
-        margin-top:50px;
+        /* margin-top:50px; */
+        width: 100%;
         justify-content:center;
         align-items:center;
     }
     
     .quiz_button button:hover {
+        transition: 0.5s ease-in-out;
         background-color: #ff9a3c
     }
     
@@ -493,7 +497,10 @@ color: #fff;
       transform: translateY(4px);
     }
     
-    .submit_landing button:hover {background-color: #ff9a3c}
+    .submit_landing button:hover {
+        transition: 0.5s ease-in-out;
+        background-color: #ff9a3c;
+    }
     
     .submit_landing button:active {
       background-color: #FFC93C;
@@ -1247,5 +1254,102 @@ input{
     }
     #desktopButton{
         display: none;
+    }
+  }
+/* -------------------------------------------------------------------------------------------------------------------
+                                                    NAVBAR LOGIN
+------------------------------------------------------------------------------------------------------------------- */
+  .blogNav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+    border-bottom: 1px solid #ffc400;
+}
+
+.blogNav_logo a{
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: bold;
+    color: #FFC93C;
+    letter-spacing: 2px;
+}
+
+
+
+.blogNav_navLinks{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 300px;
+}
+.blogNav_navLinks a{
+    text-decoration: none;
+    color: black
+}
+.blogNav_responsive{
+    display: none;
+}
+@media only screen and (max-width: 600px) {
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .blogNav{
+        display: none;
+    }
+    .blogNav_logo a{
+        margin-left: 20px;
+        font-size: 20px;
+    }
+    .blogNav_navLinks{
+        display: none;
+    }
+    .blogNav_responsive{
+        display: block;
+        padding-top: 10px;
+        width: 100%;
+   }
+    .blogNav_navLinks_responsive.open{
+        clip-path: circle(1000px at 95% 10%);
+        -webkit-clip-path: circle(1000px at 95% 10%);
+        
+    }
+    .post_description p{ 
+        text-align: justify;
+        margin: 0px 50px 10px; 
+    }
+    .blogNav_navLinks_responsive{
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        padding-top: 10px;
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        background-color: #FFC93C;
+        clip-path: circle(100px at 90% -20%);
+        -webkit-clip-path: circle(100px at 90% -20%);
+        transition: all 1s ease-out;
+    } 
+    .blogNav_navLinks_responsive a{
+        text-decoration: none;
+        color: #fff;
+    }
+    .navResponsive{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .hamburger{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin: 10px 30px;
+    }
+    .button{
+        width: 100%;
     }
   }

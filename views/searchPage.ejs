@@ -8,7 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-    <%- include('partials/navbar-Login') %> 
+    <div class="blogNav">
+        <div class="blogNav_logo">
+            <a href="/userLanding">Mind's Matter</a>
+        </div>
+        <div class="blogNav_navLinks">
+            <a href="/user/profile/<%= user._id %>">Profile</a>
+            <a href="/users/blog">Blog</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </div>
     <div class="searchArea">
         <div class="inputActions">
             <input type="text" placeholder="search Doctors" id="input">

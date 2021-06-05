@@ -6,13 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
 <body>
-    <%- include('partials/navbar') -%>
+    <div class="blogNav">
+        <div class="blogNav_logo">
+            <a href="/userLanding">Mind's Matter</a>
+        </div>
+        <div class="blogNav_navLinks">
+            <a href="/user/profile/<%= user._id %>">Profile</a>
+            <a href="/users/blog">Blog</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </div>
+    <div class="blogNav_responsive">
+        <div class="navResponsive">
+            <div class="blogNav_logo">
+                <a href="/userLanding">Mind's Matter</a>
+            </div>
+            <div id="hamburger" class="hamburger">
+                <i class="fas fa-2x fa-bars"></i>
+            </div>
+        </div>
+        <div class="blogNav_navLinks_responsive">
+            <a href="/user/profile/<%= user._id %>">Profile</a>
+            <a href="/users/blog">Blog</a>
+            <a href="/users/logout">Logout</a>
+        </div>
+    </div>
     <div class="_container">
-    <%- include('partials/navbar-Login') %> 
     <div class="contact-info">
         <div class="info">
             <h1>Contact Information</h1>
@@ -25,9 +49,9 @@
         </div>
         <div class="avatar">
             <% if(user.gender == 'male'){ %>
-                <img src="/images/Male.jpg" alt="male" srcset="">
+                <img src="/images/man.png" alt="male" srcset="">
             <%}else{%>
-                <img src="/images/female.png" alt="female" srcset="">
+                <img src="/images/woman.png" alt="female" srcset="">
             <%}%>
         </div>
     </div>
@@ -103,5 +127,6 @@
         </ul>
     </div>
 </div>
+<script src="/js/newNav.js"></script>
 </body>
 </html>
